@@ -7,21 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC44194C82E887D5B602ECEE /* Pods_VGMPRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B762DCDDF46B07D217175AD1 /* Pods_VGMPRadio.framework */; };
+		FA67362C201C117A002DAFD7 /* ScrubBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA67362B201C117A002DAFD7 /* ScrubBar.swift */; };
+		FA71010C201189C300E1C9EB /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71010B201189C300E1C9EB /* NowPlayingViewController.swift */; };
 		FAB6279F2009C61B00D548D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6279E2009C61B00D548D0 /* AppDelegate.swift */; };
-		FAB627A12009C61B00D548D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB627A02009C61B00D548D0 /* ViewController.swift */; };
+		FAB627A12009C61B00D548D0 /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB627A02009C61B00D548D0 /* MainContainerViewController.swift */; };
 		FAB627A42009C61B00D548D0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB627A22009C61B00D548D0 /* Main.storyboard */; };
 		FAB627A62009C61B00D548D0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAB627A52009C61B00D548D0 /* Assets.xcassets */; };
 		FAB627A92009C61B00D548D0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAB627A72009C61B00D548D0 /* LaunchScreen.storyboard */; };
+		FAB627B5200A6BB100D548D0 /* SongListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB627B4200A6BB100D548D0 /* SongListViewController.swift */; };
+		FAB627B8200AD51600D548D0 /* PlaylistSelectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB627B6200AD51600D548D0 /* PlaylistSelectionCell.swift */; };
+		FAB627B9200AD51600D548D0 /* PlaylistSelectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB627B7200AD51600D548D0 /* PlaylistSelectionCell.xib */; };
+		FAB627BB200C770A00D548D0 /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB627BA200C770900D548D0 /* Util.swift */; };
+		FAB627BD200D146300D548D0 /* VGMPRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB627BC200D146300D548D0 /* VGMPRadio.swift */; };
+		FAB627C7200D2AB800D548D0 /* VGMPRadio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAB627C5200D2AB800D548D0 /* VGMPRadio.xcdatamodeld */; };
+		FAB627CE200FDF9B00D548D0 /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB627CC200FDF9A00D548D0 /* SongTableViewCell.swift */; };
+		FAB627CF200FDF9B00D548D0 /* SongTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB627CD200FDF9A00D548D0 /* SongTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A6D6D077D45BD069649A6133 /* Pods-VGMPRadio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGMPRadio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VGMPRadio/Pods-VGMPRadio.debug.xcconfig"; sourceTree = "<group>"; };
+		B762DCDDF46B07D217175AD1 /* Pods_VGMPRadio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VGMPRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1E0310DEC4EDD52629B84D5 /* Pods-VGMPRadio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGMPRadio.release.xcconfig"; path = "Pods/Target Support Files/Pods-VGMPRadio/Pods-VGMPRadio.release.xcconfig"; sourceTree = "<group>"; };
+		FA67362B201C117A002DAFD7 /* ScrubBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrubBar.swift; sourceTree = "<group>"; };
+		FA71010B201189C300E1C9EB /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		FAB6279B2009C61B00D548D0 /* VGMPRadio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VGMPRadio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB6279E2009C61B00D548D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FAB627A02009C61B00D548D0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FAB627A02009C61B00D548D0 /* MainContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContainerViewController.swift; sourceTree = "<group>"; };
 		FAB627A32009C61B00D548D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FAB627A52009C61B00D548D0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FAB627A82009C61B00D548D0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAB627AA2009C61B00D548D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAB627B4200A6BB100D548D0 /* SongListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongListViewController.swift; sourceTree = "<group>"; };
+		FAB627B6200AD51600D548D0 /* PlaylistSelectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistSelectionCell.swift; sourceTree = "<group>"; };
+		FAB627B7200AD51600D548D0 /* PlaylistSelectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistSelectionCell.xib; sourceTree = "<group>"; };
+		FAB627BA200C770900D548D0 /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		FAB627BC200D146300D548D0 /* VGMPRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VGMPRadio.swift; sourceTree = "<group>"; };
+		FAB627C6200D2AB800D548D0 /* VGMPRadio.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VGMPRadio.xcdatamodel; sourceTree = "<group>"; };
+		FAB627CC200FDF9A00D548D0 /* SongTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
+		FAB627CD200FDF9A00D548D0 /* SongTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +53,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC44194C82E887D5B602ECEE /* Pods_VGMPRadio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		145288F9F393A064A32E8312 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B762DCDDF46B07D217175AD1 /* Pods_VGMPRadio.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EF5661876FEA6409698F70AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A6D6D077D45BD069649A6133 /* Pods-VGMPRadio.debug.xcconfig */,
+				F1E0310DEC4EDD52629B84D5 /* Pods-VGMPRadio.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		FAB627922009C61A00D548D0 = {
 			isa = PBXGroup;
 			children = (
+				FAB627C5200D2AB800D548D0 /* VGMPRadio.xcdatamodeld */,
 				FAB6279D2009C61B00D548D0 /* VGMPRadio */,
 				FAB6279C2009C61B00D548D0 /* Products */,
+				EF5661876FEA6409698F70AA /* Pods */,
+				145288F9F393A064A32E8312 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +99,47 @@
 		FAB6279D2009C61B00D548D0 /* VGMPRadio */ = {
 			isa = PBXGroup;
 			children = (
+				FAB627BE200D1DE300D548D0 /* Model */,
 				FAB6279E2009C61B00D548D0 /* AppDelegate.swift */,
-				FAB627A02009C61B00D548D0 /* ViewController.swift */,
 				FAB627A22009C61B00D548D0 /* Main.storyboard */,
 				FAB627A52009C61B00D548D0 /* Assets.xcassets */,
 				FAB627A72009C61B00D548D0 /* LaunchScreen.storyboard */,
 				FAB627AA2009C61B00D548D0 /* Info.plist */,
+				FAB627C0200D1E1700D548D0 /* Cells */,
+				FAB627BF200D1DF500D548D0 /* View Controllers */,
+				FAB627BA200C770900D548D0 /* Util.swift */,
+				FA67362B201C117A002DAFD7 /* ScrubBar.swift */,
 			);
 			path = VGMPRadio;
+			sourceTree = "<group>";
+		};
+		FAB627BE200D1DE300D548D0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FAB627BC200D146300D548D0 /* VGMPRadio.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FAB627BF200D1DF500D548D0 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FAB627A02009C61B00D548D0 /* MainContainerViewController.swift */,
+				FAB627B4200A6BB100D548D0 /* SongListViewController.swift */,
+				FA71010B201189C300E1C9EB /* NowPlayingViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FAB627C0200D1E1700D548D0 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FAB627B6200AD51600D548D0 /* PlaylistSelectionCell.swift */,
+				FAB627B7200AD51600D548D0 /* PlaylistSelectionCell.xib */,
+				FAB627CC200FDF9A00D548D0 /* SongTableViewCell.swift */,
+				FAB627CD200FDF9A00D548D0 /* SongTableViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -71,9 +149,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FAB627AD2009C61B00D548D0 /* Build configuration list for PBXNativeTarget "VGMPRadio" */;
 			buildPhases = (
+				8B507662C1D2B1673403D44E /* [CP] Check Pods Manifest.lock */,
 				FAB627972009C61A00D548D0 /* Sources */,
 				FAB627982009C61A00D548D0 /* Frameworks */,
 				FAB627992009C61A00D548D0 /* Resources */,
+				845D61D4455981DA98364F7C /* [CP] Embed Pods Frameworks */,
+				C04856E67DE1EA9682CE7B0F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -97,6 +178,11 @@
 					FAB6279A2009C61A00D548D0 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -123,20 +209,78 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAB627CF200FDF9B00D548D0 /* SongTableViewCell.xib in Resources */,
 				FAB627A92009C61B00D548D0 /* LaunchScreen.storyboard in Resources */,
 				FAB627A62009C61B00D548D0 /* Assets.xcassets in Resources */,
+				FAB627B9200AD51600D548D0 /* PlaylistSelectionCell.xib in Resources */,
 				FAB627A42009C61B00D548D0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		845D61D4455981DA98364F7C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VGMPRadio/Pods-VGMPRadio-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B507662C1D2B1673403D44E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C04856E67DE1EA9682CE7B0F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VGMPRadio/Pods-VGMPRadio-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FAB627972009C61A00D548D0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAB627A12009C61B00D548D0 /* ViewController.swift in Sources */,
+				FAB627B8200AD51600D548D0 /* PlaylistSelectionCell.swift in Sources */,
+				FA67362C201C117A002DAFD7 /* ScrubBar.swift in Sources */,
+				FA71010C201189C300E1C9EB /* NowPlayingViewController.swift in Sources */,
+				FAB627BB200C770A00D548D0 /* Util.swift in Sources */,
+				FAB627BD200D146300D548D0 /* VGMPRadio.swift in Sources */,
+				FAB627A12009C61B00D548D0 /* MainContainerViewController.swift in Sources */,
+				FAB627CE200FDF9B00D548D0 /* SongTableViewCell.swift in Sources */,
+				FAB627B5200A6BB100D548D0 /* SongListViewController.swift in Sources */,
+				FAB627C7200D2AB800D548D0 /* VGMPRadio.xcdatamodeld in Sources */,
 				FAB6279F2009C61B00D548D0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +416,7 @@
 		};
 		FAB627AE2009C61B00D548D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A6D6D077D45BD069649A6133 /* Pods-VGMPRadio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -287,6 +432,7 @@
 		};
 		FAB627AF2009C61B00D548D0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F1E0310DEC4EDD52629B84D5 /* Pods-VGMPRadio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -322,6 +468,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FAB627C5200D2AB800D548D0 /* VGMPRadio.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FAB627C6200D2AB800D548D0 /* VGMPRadio.xcdatamodel */,
+			);
+			currentVersion = FAB627C6200D2AB800D548D0 /* VGMPRadio.xcdatamodel */;
+			path = VGMPRadio.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FAB627932009C61A00D548D0 /* Project object */;
 }
