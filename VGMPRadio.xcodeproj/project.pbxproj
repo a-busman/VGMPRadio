@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		AC44194C82E887D5B602ECEE /* Pods_VGMPRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B762DCDDF46B07D217175AD1 /* Pods_VGMPRadio.framework */; };
+		FA0AD313201D98F30084C4F6 /* PlayShuffleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0AD311201D98F30084C4F6 /* PlayShuffleTableViewCell.swift */; };
+		FA0AD314201D98F30084C4F6 /* PlayShuffleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA0AD312201D98F30084C4F6 /* PlayShuffleTableViewCell.xib */; };
 		FA67362C201C117A002DAFD7 /* ScrubBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA67362B201C117A002DAFD7 /* ScrubBar.swift */; };
+		FA673635201D4565002DAFD7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA673637201D4565002DAFD7 /* Localizable.strings */; };
 		FA71010C201189C300E1C9EB /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71010B201189C300E1C9EB /* NowPlayingViewController.swift */; };
 		FAB6279F2009C61B00D548D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB6279E2009C61B00D548D0 /* AppDelegate.swift */; };
 		FAB627A12009C61B00D548D0 /* MainContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB627A02009C61B00D548D0 /* MainContainerViewController.swift */; };
@@ -29,7 +32,19 @@
 		A6D6D077D45BD069649A6133 /* Pods-VGMPRadio.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGMPRadio.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VGMPRadio/Pods-VGMPRadio.debug.xcconfig"; sourceTree = "<group>"; };
 		B762DCDDF46B07D217175AD1 /* Pods_VGMPRadio.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VGMPRadio.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E0310DEC4EDD52629B84D5 /* Pods-VGMPRadio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGMPRadio.release.xcconfig"; path = "Pods/Target Support Files/Pods-VGMPRadio/Pods-VGMPRadio.release.xcconfig"; sourceTree = "<group>"; };
+		FA0AD311201D98F30084C4F6 /* PlayShuffleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayShuffleTableViewCell.swift; sourceTree = "<group>"; };
+		FA0AD312201D98F30084C4F6 /* PlayShuffleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayShuffleTableViewCell.xib; sourceTree = "<group>"; };
 		FA67362B201C117A002DAFD7 /* ScrubBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrubBar.swift; sourceTree = "<group>"; };
+		FA673631201D4513002DAFD7 /* en-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-CA"; path = "en-CA.lproj/Main.strings"; sourceTree = "<group>"; };
+		FA673632201D4513002DAFD7 /* en-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-CA"; path = "en-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		FA673638201D4566002DAFD7 /* en-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-CA"; path = "en-CA.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FA673639201D46CD002DAFD7 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Main.strings"; sourceTree = "<group>"; };
+		FA67363A201D46CE002DAFD7 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		FA67363B201D46E0002DAFD7 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		FA67363C201D4713002DAFD7 /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "en-001.lproj/Main.strings"; sourceTree = "<group>"; };
+		FA67363D201D4713002DAFD7 /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "en-001.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		FA67363E201D4716002DAFD7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		FA67363F201D471D002DAFD7 /* en-001 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-001"; path = "en-001.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FA71010B201189C300E1C9EB /* NowPlayingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingViewController.swift; sourceTree = "<group>"; };
 		FAB6279B2009C61B00D548D0 /* VGMPRadio.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VGMPRadio.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAB6279E2009C61B00D548D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +124,7 @@
 				FAB627BF200D1DF500D548D0 /* View Controllers */,
 				FAB627BA200C770900D548D0 /* Util.swift */,
 				FA67362B201C117A002DAFD7 /* ScrubBar.swift */,
+				FA673637201D4565002DAFD7 /* Localizable.strings */,
 			);
 			path = VGMPRadio;
 			sourceTree = "<group>";
@@ -138,6 +154,8 @@
 				FAB627B7200AD51600D548D0 /* PlaylistSelectionCell.xib */,
 				FAB627CC200FDF9A00D548D0 /* SongTableViewCell.swift */,
 				FAB627CD200FDF9A00D548D0 /* SongTableViewCell.xib */,
+				FA0AD311201D98F30084C4F6 /* PlayShuffleTableViewCell.swift */,
+				FA0AD312201D98F30084C4F6 /* PlayShuffleTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -155,6 +173,7 @@
 				FAB627992009C61A00D548D0 /* Resources */,
 				845D61D4455981DA98364F7C /* [CP] Embed Pods Frameworks */,
 				C04856E67DE1EA9682CE7B0F /* [CP] Copy Pods Resources */,
+				FA0AD31520203B760084C4F6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -193,6 +212,9 @@
 			knownRegions = (
 				en,
 				Base,
+				"en-CA",
+				"en-GB",
+				"en-001",
 			);
 			mainGroup = FAB627922009C61A00D548D0;
 			productRefGroup = FAB6279C2009C61B00D548D0 /* Products */;
@@ -210,6 +232,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAB627CF200FDF9B00D548D0 /* SongTableViewCell.xib in Resources */,
+				FA673635201D4565002DAFD7 /* Localizable.strings in Resources */,
+				FA0AD314201D98F30084C4F6 /* PlayShuffleTableViewCell.xib in Resources */,
 				FAB627A92009C61B00D548D0 /* LaunchScreen.storyboard in Resources */,
 				FAB627A62009C61B00D548D0 /* Assets.xcassets in Resources */,
 				FAB627B9200AD51600D548D0 /* PlaylistSelectionCell.xib in Resources */,
@@ -265,6 +289,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-VGMPRadio/Pods-VGMPRadio-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FA0AD31520203B760084C4F6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" d6ea496ed95a9f128495250bae1780e3eba1e7ae 864f2b8b775cb2f1a273a7791115a60e1070d062c9aa166df58e296238718ebd";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -274,6 +311,7 @@
 			files = (
 				FAB627B8200AD51600D548D0 /* PlaylistSelectionCell.swift in Sources */,
 				FA67362C201C117A002DAFD7 /* ScrubBar.swift in Sources */,
+				FA0AD313201D98F30084C4F6 /* PlayShuffleTableViewCell.swift in Sources */,
 				FA71010C201189C300E1C9EB /* NowPlayingViewController.swift in Sources */,
 				FAB627BB200C770A00D548D0 /* Util.swift in Sources */,
 				FAB627BD200D146300D548D0 /* VGMPRadio.swift in Sources */,
@@ -288,10 +326,24 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		FA673637201D4565002DAFD7 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA673638201D4566002DAFD7 /* en-CA */,
+				FA67363B201D46E0002DAFD7 /* en-GB */,
+				FA67363E201D4716002DAFD7 /* Base */,
+				FA67363F201D471D002DAFD7 /* en-001 */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		FAB627A22009C61B00D548D0 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				FAB627A32009C61B00D548D0 /* Base */,
+				FA673631201D4513002DAFD7 /* en-CA */,
+				FA673639201D46CD002DAFD7 /* en-GB */,
+				FA67363C201D4713002DAFD7 /* en-001 */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -300,6 +352,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				FAB627A82009C61B00D548D0 /* Base */,
+				FA673632201D4513002DAFD7 /* en-CA */,
+				FA67363A201D46CE002DAFD7 /* en-GB */,
+				FA67363D201D4713002DAFD7 /* en-001 */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -311,6 +366,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -368,6 +424,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -419,12 +476,16 @@
 			baseConfigurationReference = A6D6D077D45BD069649A6133 /* Pods-VGMPRadio.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D9J98STRHA;
 				INFOPLIST_FILE = VGMPRadio/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abusman.VGMPRadio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -435,12 +496,16 @@
 			baseConfigurationReference = F1E0310DEC4EDD52629B84D5 /* Pods-VGMPRadio.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D9J98STRHA;
 				INFOPLIST_FILE = VGMPRadio/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abusman.VGMPRadio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

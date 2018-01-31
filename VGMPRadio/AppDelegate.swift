@@ -9,6 +9,8 @@
 import UIKit
 import AVFoundation
 import CoreData
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,14 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.        
+        // Override point for customization after application launch.
+        Fabric.with([Crashlytics.self])
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setCategory(AVAudioSessionCategoryPlayback)
         } catch {
             print("Setting category to AVAudioSessionCategoryPlayback failed.")
         }
-        
         return true
     }
 
@@ -46,6 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if let mainViewController = self.window?.rootViewController as? MainContainerViewController,
             let isPlaying = mainViewController.player?.isPlaying {
+            mainViewController.songListNavigationControllerContainer?.refreshPlaying()
             if !isPlaying {
                 mainViewController.doPause()
             }

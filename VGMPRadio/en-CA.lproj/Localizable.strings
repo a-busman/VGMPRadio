@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  VGMPRadio
+
+  Created by Alex Busman on 1/27/18.
+  Copyright © 2018 Alex Busman. All rights reserved.
+*/
+
+"Favorite" = "Favourite";
+"Favorites" = "Favourites";
+"Unfavorite" = "Unfavourite";

@@ -1,0 +1,18 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "F4W-cy-57n"; */
+"F4W-cy-57n.text" = "Label";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Vdg-XQ-4md"; */
+"Vdg-XQ-4md.text" = "Label";
+
+/* Class = "UINavigationItem"; title = " "; ObjectID = "bDC-LN-iJ9"; */
+"bDC-LN-iJ9.title" = " ";
+
+/* Class = "UILabel"; text = "0:00"; ObjectID = "czC-aw-UD9"; */
+"czC-aw-UD9.text" = "0:00";
+
+/* Class = "UILabel"; text = "-0:00"; ObjectID = "nqx-3O-DT3"; */
+"nqx-3O-DT3.text" = "-0:00";
+
+/* Class = "UILabel"; text = "Now Playing"; ObjectID = "pci-9a-sio"; */
+"pci-9a-sio.text" = "Now Playing";

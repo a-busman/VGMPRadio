@@ -15,8 +15,13 @@ protocol NowPlayingViewControllerDelegate {
     func nextTrack()
     func previousTrack()
     func scrubTrack(percentage: Double)
-    func shuffleTracks()
-    func repeatTracks()
+    func tapped()
+    func shuffleToggled()
+    func repeatToggled()
+    func seekForward(begin: Bool)
+    func seekBackward(begin: Bool)
+    func favorite()
+    func dislike()
 }
 
 class NowPlayingViewController: UIViewController {
@@ -38,8 +43,19 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var currentTimeLabel:     UILabel?
     @IBOutlet weak var timeRemainingLabel:   UILabel?
     
+    @IBOutlet weak var shuffleLabel: UILabel?
+    @IBOutlet weak var shuffleImage: UIImageView?
+    @IBOutlet weak var shuffleView:  UIView?
+    
+    @IBOutlet weak var repeatLabel: UILabel?
+    @IBOutlet weak var repeatImage: UIImageView?
+    @IBOutlet weak var repeatView:  UIView?
+    
     @IBOutlet weak var titleMarquee: MarqueeLabel?
     @IBOutlet weak var gameMarquee:  MarqueeLabel?
+    
+    @IBOutlet weak var thumbsUpButton:   UIButton?
+    @IBOutlet weak var thumbsDownButton: UIButton?
     
     @IBOutlet weak var albumArtLeadingConstraint:  NSLayoutConstraint?
     @IBOutlet weak var albumArtTrailingConstraint: NSLayoutConstraint?
@@ -56,6 +72,10 @@ class NowPlayingViewController: UIViewController {
     
     @IBOutlet weak var currentTimeTopConstraint:   NSLayoutConstraint?
     @IBOutlet weak var timeRemainingTopConstraint: NSLayoutConstraint?
+    
+    @IBOutlet weak var handleView: UIView?
+    
+    var handleShape: CAShapeLayer?
         
     var playSmallImage:  UIImage? = #imageLiteral(resourceName: "play")
     var nextSmallImage:  UIImage? = #imageLiteral(resourceName: "FF")
@@ -69,13 +89,18 @@ class NowPlayingViewController: UIViewController {
     var volUpImage:   UIImage? = #imageLiteral(resourceName: "volume_up")
     var volDownImage: UIImage? = #imageLiteral(resourceName: "volume_down")
     
-    let scrubBarBottomDefault: CGFloat = -27.0
-    let scrubBarBottomFocused: CGFloat = -15.0
+    var thumbsUpImage: UIImage? = #imageLiteral(resourceName: "thumbs-up").invertColors()
+    var thumbsUpFilledImage: UIImage? = #imageLiteral(resourceName: "thumbs-up-filled").invertColors()
+    var thumbsDownImage: UIImage? = #imageLiteral(resourceName: "thumb-down").invertColors()
+    var thumbsDownFilledImage: UIImage? = #imageLiteral(resourceName: "thumbs-down-filled").invertColors()
+    
+    let scrubBarBottomDefault:        CGFloat =  -27.0
+    let scrubBarBottomFocused:        CGFloat =  -15.0
     let minimumArtLeadingConstraint:  CGFloat =   20.0
-    let minimumArtTrailingConstraint: CGFloat = -305.0
+    var minimumArtTrailingConstraint: CGFloat = -305.0
     let minimumArtTopConstraint:      CGFloat =    5.0
     let maximumArtConstraints:        CGFloat =   63.0
-    let scrubPlayingConstraints: CGFloat = 50.0
+    let scrubPlayingConstraints:      CGFloat =   50.0
     
     let artPlayingConstraints: CGFloat = 32.0
 
@@ -86,6 +111,10 @@ class NowPlayingViewController: UIViewController {
     
     let timeMovedDownValue: CGFloat = 0.0
     private var _duration: Double = 0.0
+    
+    var isSeeking: Bool = false
+    var shouldResume: Bool = false
+    var seekTimer: Timer?
     
     var duration: Double {
         set(newValue) {
@@ -138,8 +167,6 @@ class NowPlayingViewController: UIViewController {
                     self.albumArtTopConstraint?.constant      =  self.artPlayingConstraints
                     self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints
                     self.albumArtTrailingConstraint?.constant = -self.artPlayingConstraints
-                    //self.backgroundAlbumArtHeightConstraint?.constant = self.maximumBackgroundArtConstraints
-                    //self.backgroundAlbumArtWidthConstraint?.constant  = self.maximumBackgroundArtConstraints
                     self.view.setNeedsLayout()
                     UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
                         self.backgroundImageView?.alpha = 1.0
@@ -153,8 +180,6 @@ class NowPlayingViewController: UIViewController {
                     self.albumArtTopConstraint?.constant      =  self.maximumArtConstraints
                     self.albumArtLeadingConstraint?.constant  =  self.maximumArtConstraints
                     self.albumArtTrailingConstraint?.constant = -self.maximumArtConstraints
-                    //self.backgroundAlbumArtHeightConstraint?.constant = self.hiddenBackgroundArtConstraints
-                    //self.backgroundAlbumArtWidthConstraint?.constant  = self.hiddenBackgroundArtConstraints
                     self.view.setNeedsLayout()
                     UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
                         self.backgroundImageView?.alpha = 0.0
@@ -176,6 +201,8 @@ class NowPlayingViewController: UIViewController {
                 self.titleSmallLabel?.textColor = .black
                 self.titleMarquee?.textColor = .black
                 self.gameMarquee?.textColor = .black
+                self.currentTimeLabel?.textColor = .darkGray
+                self.timeRemainingLabel?.textColor = .darkGray
                 self.playSmallImage = self.playSmallImage?.invertColors()
                 self.nextSmallImage = self.nextSmallImage?.invertColors()
                 self.pauseSmallImage = self.pauseSmallImage?.invertColors()
@@ -185,11 +212,17 @@ class NowPlayingViewController: UIViewController {
                 self.prevImage = self.prevImage?.invertColors()
                 self.volUpImage = self.volUpImage?.invertColors()
                 self.volDownImage = self.volDownImage?.invertColors()
+                self.thumbsUpImage = #imageLiteral(resourceName: "thumbs-up")
+                self.thumbsUpFilledImage = #imageLiteral(resourceName: "thumbs-up-filled")
+                self.thumbsDownImage = #imageLiteral(resourceName: "thumb-down")
+                self.thumbsDownFilledImage = #imageLiteral(resourceName: "thumbs-down-filled")
             } else {
                 self.visualEffectView?.effect = UIBlurEffect(style: .dark)
                 self.titleSmallLabel?.textColor = .white
                 self.titleMarquee?.textColor = .white
                 self.gameMarquee?.textColor = .white
+                self.currentTimeLabel?.textColor = .white
+                self.timeRemainingLabel?.textColor = .white
                 self.playSmallImage = #imageLiteral(resourceName: "play")
                 self.nextSmallImage = #imageLiteral(resourceName: "FF")
                 self.pauseSmallImage = #imageLiteral(resourceName: "pause")
@@ -199,8 +232,18 @@ class NowPlayingViewController: UIViewController {
                 self.prevImage = #imageLiteral(resourceName: "RW")
                 self.volUpImage = #imageLiteral(resourceName: "volume_up")
                 self.volDownImage = #imageLiteral(resourceName: "volume_down")
+                self.thumbsUpImage = #imageLiteral(resourceName: "thumbs-up").invertColors()
+                self.thumbsUpFilledImage = #imageLiteral(resourceName: "thumbs-up-filled").invertColors()
+                self.thumbsDownImage = #imageLiteral(resourceName: "thumb-down").invertColors()
+                self.thumbsDownFilledImage = #imageLiteral(resourceName: "thumbs-down-filled").invertColors()
             }
-            
+            let fillColor = self._currentTheme == .light ? UIColor.darkGray : UIColor.white
+            let activeImage = UIImage.circle(diameter: 31.0, fillColor: fillColor)
+            self.scrubBarSlider?.setThumbImage(UIImage.circle(diameter: 6.0, fillColor: fillColor, offset: CGPoint(x: 0.5, y: 0.5)), for: .normal)
+            self.scrubBarSlider?.setThumbImage(activeImage, for: .highlighted)
+            self.scrubBarSlider?.setThumbImage(activeImage, for: .selected)
+            self.scrubBarSlider?.setThumbImage(activeImage, for: .focused)
+            self.scrubBarSlider?.minimumTrackTintColor = self._currentTheme == .light ? UIColor.darkGray : UIColor.white
             if self._nowPlaying {
                 self.playPauseSmallButton?.setImage(self.pauseSmallImage, for: .normal)
                 self.playPauseButton?.setImage(self.pauseImage, for: .normal)
@@ -213,6 +256,11 @@ class NowPlayingViewController: UIViewController {
             self.prevTrackButton?.setImage(self.prevImage, for: .normal)
             self.volumeUpImageView?.image = self.volUpImage
             self.volumeDownImageView?.image = self.volDownImage
+            
+            self.thumbsUpButton?.setImage(self.thumbsUpImage, for: .normal)
+            self.thumbsUpButton?.setImage(self.thumbsUpFilledImage, for: .selected)
+            self.thumbsDownButton?.setImage(self.thumbsDownImage, for: .normal)
+            self.thumbsDownButton?.setImage(self.thumbsDownFilledImage, for: .selected)
         }
         get {
             return self._currentTheme
@@ -230,25 +278,27 @@ class NowPlayingViewController: UIViewController {
         self.backgroundAlbumArtWidthConstraint?.constant  = self.minimumBackgroundArtConstraints
         self.backgroundAlbumArtHeightConstraint?.constant = self.minimumBackgroundArtConstraints
         self.prevTrackButton?.setImage(self.prevImage, for: .normal)
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if self._firstLoad {
+            self.addDragHandle()
+            self.minimumArtTrailingConstraint = -(self.view.frame.width - 70.0)
+            self.albumArtTrailingConstraint?.constant = self.minimumArtTrailingConstraint
             self.albumArtImageView?.layer.borderColor = UIColor(white: 0.8, alpha: 1.0).cgColor
             self._firstLoad = false
             self.fakeVolumeSlider?.setThumbImage(UIImage(), for: .normal)
             self.fakeVolumeSlider?.setThumbImage(UIImage(), for: .disabled)
             self.fakeVolumeSlider?.setValue(0.0, animated: false)
             self.fakeVolumeSlider?.isEnabled = false
-            let activeImage = UIImage.circle(diameter: 31.0, fillColor: .darkGray)
-            self.scrubBarSlider?.setThumbImage(UIImage.circle(diameter: 6.0, fillColor: .darkGray, offset: CGPoint(x: 0.5, y: 0.5)), for: .normal)
+            let fillColor = self._currentTheme == .light ? UIColor.darkGray : UIColor.white
+            let activeImage = UIImage.circle(diameter: 31.0, fillColor: fillColor)
+            self.scrubBarSlider?.setThumbImage(UIImage.circle(diameter: 6.0, fillColor: fillColor, offset: CGPoint(x: 0.5, y: 0.5)), for: .normal)
             self.scrubBarSlider?.setThumbImage(activeImage, for: .highlighted)
             self.scrubBarSlider?.setThumbImage(activeImage, for: .selected)
             self.scrubBarSlider?.setThumbImage(activeImage, for: .focused)
@@ -257,25 +307,88 @@ class NowPlayingViewController: UIViewController {
         }
     }
     
+    func addDragHandle() {
+        if let handleView = self.handleView {
+            self.handleShape = CAShapeLayer()
+            
+            let path = UIBezierPath()
+            
+            path.move(to: CGPoint(x: 0.0, y: handleView.frame.height / 2.0))
+            path.addLine(to: CGPoint(x: handleView.frame.width / 2.0, y: handleView.frame.height / 2.0))
+            path.move(to: CGPoint(x: handleView.frame.width / 2.0, y: handleView.frame.height / 2.0))
+            path.addLine(to: CGPoint(x: handleView.frame.width, y: handleView.frame.height / 2.0))
+            self.handleShape?.path = path.cgPath
+            self.handleShape?.fillColor = UIColor.gray.cgColor
+            self.handleShape?.strokeColor = UIColor.gray.cgColor
+            self.handleShape?.lineWidth = 5.0
+            self.handleShape?.lineCap = kCALineCapRound
+            self.handleShape?.lineJoin = kCALineJoinMiter
+            handleView.layer.addSublayer(self.handleShape!)
+        }
+    }
+    
+    func bendDragHandle() {
+        if let handleShape = self.handleShape,
+           let handleView = self.handleView {
+            let endPath = UIBezierPath()
+            endPath.move(to: CGPoint(x: 0.0, y: 0.0))
+            endPath.addLine(to: CGPoint(x: handleView.frame.width / 2.0, y: handleView.frame.height))
+            endPath.move(to: CGPoint(x: handleView.frame.width / 2.0, y: handleView.frame.height))
+            endPath.addLine(to: CGPoint(x: handleView.frame.width, y: 0.0))
+            
+            let animation = CABasicAnimation(keyPath: "path")
+            animation.duration = 0.25
+            animation.fromValue = handleShape.path
+            animation.toValue = endPath.cgPath
+            animation.timingFunction = CAMediaTimingFunction(name: "easeInEaseOut")
+            handleShape.add(animation, forKey: "path")
+            handleShape.path = endPath.cgPath
+        }
+    }
+    
+    func unbendDragHandle() {
+        if let handleShape = self.handleShape,
+            let handleView = self.handleView {
+            let path = UIBezierPath()
+            
+            path.move(to: CGPoint(x: 0.0, y: handleView.frame.height / 2.0))
+            path.addLine(to: CGPoint(x: handleView.frame.width / 2.0, y: handleView.frame.height / 2.0))
+            path.move(to: CGPoint(x: handleView.frame.width / 2.0, y: handleView.frame.height / 2.0))
+            path.addLine(to: CGPoint(x: handleView.frame.width, y: handleView.frame.height / 2.0))
+            let animation = CABasicAnimation(keyPath: "path")
+            animation.duration = 0.25
+            animation.fromValue = handleShape.path
+            animation.toValue = path.cgPath
+            animation.timingFunction = CAMediaTimingFunction(name: "easeInEaseOut")
+            handleShape.add(animation, forKey: "path")
+            handleShape.path = path.cgPath
+        }
+    }
     func updateViewOnTap(maximized: Bool, duration: TimeInterval) {
         self.isMaximized = maximized
         if maximized {
             self.titleMarquee?.restartLabel()
             self.gameMarquee?.restartLabel()
             if self.volumeViewPlaceholder != nil {
-                self.volumeView = MPVolumeView(frame: self.volumeViewPlaceholder!.bounds)
-                self.volumeView.showsRouteButton = false
+                if self.volumeView.superview == nil {
+                    self.volumeView = MPVolumeView(frame: self.volumeViewPlaceholder!.bounds)
+                    self.volumeView.showsRouteButton = false
+                }
                 if self._currentTheme == .light {
                     self.volumeView.tintColor = .darkGray
                 } else {
                     self.volumeView.tintColor = .white
                 }
-                self.volumeViewPlaceholder?.addSubview(self.volumeView)
+                if self.volumeView.superview == nil {
+                    self.volumeViewPlaceholder?.addSubview(self.volumeView)
+                }
             }
             if self.airPlayViewPlaceholder != nil {
-                self.airPlayView = MPVolumeView(frame: self.airPlayViewPlaceholder!.bounds)
-                self.airPlayView.showsVolumeSlider = false
-                self.airPlayView.setRouteButtonImage(#imageLiteral(resourceName: "airplay_selected"), for: .selected)
+                if self.airPlayView.superview == nil {
+                    self.airPlayView = MPVolumeView(frame: self.airPlayViewPlaceholder!.bounds)
+                    self.airPlayView.showsVolumeSlider = false
+                    self.airPlayView.setRouteButtonImage(#imageLiteral(resourceName: "airplay_selected"), for: .selected)
+                }
                 if self._currentTheme == .light {
                     self.airPlayView.setRouteButtonImage(#imageLiteral(resourceName: "airplay"), for: .normal)
                 } else {
@@ -283,31 +396,29 @@ class NowPlayingViewController: UIViewController {
                     self.airPlayView.setRouteButtonImage(invertedImage?.image(with: #imageLiteral(resourceName: "airplay").size), for: .normal)
                 }
                 self.airPlayView.tintColor = .darkGray
-                self.airPlayViewPlaceholder?.addSubview(self.airPlayView)
+                if self.airPlayView.superview == nil {
+                    self.airPlayViewPlaceholder?.addSubview(self.airPlayView)
+                }
             }
             if self._nowPlaying {
                 self.albumArtTopConstraint?.constant      =  self.artPlayingConstraints
                 self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints
                 self.albumArtTrailingConstraint?.constant = -self.artPlayingConstraints
-                
-                //self.backgroundAlbumArtWidthConstraint?.constant = self.maximumBackgroundArtConstraints
-                //self.backgroundAlbumArtHeightConstraint?.constant = self.maximumBackgroundArtConstraints
             } else {
                 self.albumArtTopConstraint?.constant      =  self.maximumArtConstraints
                 self.albumArtLeadingConstraint?.constant  =  self.maximumArtConstraints
                 self.albumArtTrailingConstraint?.constant = -self.maximumArtConstraints
-                
-                //self.backgroundAlbumArtWidthConstraint?.constant  = self.hiddenBackgroundArtConstraints
-                //self.backgroundAlbumArtHeightConstraint?.constant = self.hiddenBackgroundArtConstraints
             }
             UIView.animate(withDuration: duration * 0.3) {
                 self.playPauseSmallView?.alpha = 0.0
                 self.nextTrackSmallView?.alpha = 0.0
                 self.titleSmallLabel?.alpha = 0.0
+                self.handleView?.alpha = 1.0
                 if self._nowPlaying {
                     self.backgroundImageView?.alpha = 1.0
                 }
             }
+            self.bendDragHandle()
             UIViewPropertyAnimator(duration: duration, dampingRatio: 1.0, animations: {
                 self.albumArtImageView?.layer.cornerRadius = 8.0
             }).startAnimation()
@@ -316,8 +427,7 @@ class NowPlayingViewController: UIViewController {
             self.albumArtLeadingConstraint?.constant  = self.minimumArtLeadingConstraint
             self.albumArtTrailingConstraint?.constant = self.minimumArtTrailingConstraint
             
-            //self.backgroundAlbumArtWidthConstraint?.constant  = self.minimumBackgroundArtConstraints
-            //self.backgroundAlbumArtHeightConstraint?.constant = self.minimumBackgroundArtConstraints
+            self.handleView?.alpha = 0.0
             UIView.animate(withDuration: duration, animations: {
                 self.playPauseSmallView?.alpha = 1.0
                 self.nextTrackSmallView?.alpha = 1.0
@@ -372,10 +482,49 @@ class NowPlayingViewController: UIViewController {
     }
     
     func updateView(percentage: CGFloat) {
-        self.albumArtTopConstraint?.constant = ((self.maximumArtConstraints - self.minimumArtTopConstraint) * percentage) + self.minimumArtTopConstraint
-        self.albumArtLeadingConstraint?.constant = ((self.maximumArtConstraints - self.minimumArtLeadingConstraint) * percentage) + self.minimumArtLeadingConstraint
-        self.albumArtTrailingConstraint?.constant = ((self.maximumArtConstraints - (-self.minimumArtTrailingConstraint)) * percentage) + self.minimumArtTrailingConstraint
+        if self.volumeViewPlaceholder != nil {
+            if self.volumeView.superview == nil {
+                self.volumeView = MPVolumeView(frame: self.volumeViewPlaceholder!.bounds)
+                self.volumeView.showsRouteButton = false
+                if self._currentTheme == .light {
+                    self.volumeView.tintColor = .darkGray
+                } else {
+                    self.volumeView.tintColor = .white
+                }
+                self.volumeViewPlaceholder?.addSubview(self.volumeView)
+            }
+        }
+        if self.airPlayViewPlaceholder != nil {
+            if self.airPlayView.superview == nil {
+                self.airPlayView = MPVolumeView(frame: self.airPlayViewPlaceholder!.bounds)
+                self.airPlayView.showsVolumeSlider = false
+                self.airPlayView.setRouteButtonImage(#imageLiteral(resourceName: "airplay_selected"), for: .selected)
+                if self._currentTheme == .light {
+                    self.airPlayView.setRouteButtonImage(#imageLiteral(resourceName: "airplay"), for: .normal)
+                } else {
+                    let invertedImage = #imageLiteral(resourceName: "airplay").invertColors()
+                    self.airPlayView.setRouteButtonImage(invertedImage?.image(with: #imageLiteral(resourceName: "airplay").size), for: .normal)
+                }
+                self.airPlayView.tintColor = .darkGray
+                self.airPlayViewPlaceholder?.addSubview(self.airPlayView)
+            }
+        }
+        let maxConstraint = self._nowPlaying ? self.artPlayingConstraints : self.maximumArtConstraints
+        self.albumArtTopConstraint?.constant = ((maxConstraint - self.minimumArtTopConstraint) * percentage) + self.minimumArtTopConstraint
+        self.albumArtLeadingConstraint?.constant = ((maxConstraint - self.minimumArtLeadingConstraint) * percentage) + self.minimumArtLeadingConstraint
+        self.albumArtTrailingConstraint?.constant = self.minimumArtTrailingConstraint + ((-self.minimumArtTrailingConstraint - maxConstraint) * percentage)
         self.view.layoutIfNeeded()
+        
+        self.playPauseSmallView?.alpha = max(1.0 - percentage * 4.0, 0.0)
+        self.nextTrackSmallView?.alpha = max(1.0 - percentage * 4.0, 0.0)
+        self.titleSmallLabel?.alpha = max(1.0 - percentage * 4.0, 0.0)
+        self.handleView?.alpha = max(percentage * 2.0 - 1.0, 0.0)
+        if self._nowPlaying {
+            self.backgroundImageView?.alpha = percentage
+        }
+        self.view.backgroundColor = UIColor(white: 1.0, alpha: percentage)
+        self.albumArtImageView?.layer.cornerRadius = 3.0 * percentage + 5.0
+
     }
     
     func updateScrubBar(seconds: Double, updateBar: Bool) {
@@ -396,31 +545,120 @@ class NowPlayingViewController: UIViewController {
             }
         }
     }
+    
+    func shuffle(enabled: Bool) {
+        if enabled {
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
+                self.shuffleView?.backgroundColor = Util.uiDarkColor
+                self.shuffleLabel?.textColor = Util.uiLightColor
+                self.shuffleImage?.image = #imageLiteral(resourceName: "shuffle").invertColors()
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
+                self.shuffleView?.backgroundColor = Util.uiLightColor
+                self.shuffleLabel?.textColor = Util.uiDarkColor
+                self.shuffleImage?.image = #imageLiteral(resourceName: "shuffle")
+            }, completion: nil)
+        }
+    }
+    
+    func `repeat`(enabled: Bool, one: Bool) {
+        if enabled {
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
+                self.repeatView?.backgroundColor = Util.uiDarkColor
+                self.repeatLabel?.textColor = Util.uiLightColor
+                if one {
+                    self.repeatImage?.image = #imageLiteral(resourceName: "repeat_1").invertColors()
+                } else {
+                    self.repeatImage?.image = #imageLiteral(resourceName: "repeat").invertColors()
+                }
+            }, completion: nil)
+        } else {
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
+                self.repeatView?.backgroundColor = Util.uiLightColor
+                self.repeatLabel?.textColor = Util.uiDarkColor
+                self.repeatImage?.image = #imageLiteral(resourceName: "repeat")
+            }, completion: nil)
+        }
+    }
+    
+    func like(favorite: Bool, dislike: Bool) {
+        if favorite {
+            self.thumbsDownButton?.isSelected = false
+            self.thumbsUpButton?.isSelected = true
+        } else if dislike {
+            self.thumbsDownButton?.isSelected = true
+            self.thumbsUpButton?.isSelected = false
+        } else {
+            self.thumbsDownButton?.isSelected = false
+            self.thumbsUpButton?.isSelected = false
+        }
+    }
 
     @IBAction func mediaButtonTouchUpInside(sender: UIButton) {
         if sender.tag == 0 {
             self.delegate?.playPauseTrack()
-        } else if sender.tag == 1 {
-            self.delegate?.nextTrack()
+        } else if sender.tag == 1 || sender.tag == 3 {
+            if !self.isSeeking {
+                self.delegate?.nextTrack()
+            }
+            self.seekTimer?.invalidate()
+            self.isSeeking = false
+            self.nowPlaying = self.shouldResume
+            self.delegate?.seekForward(begin: false)
         } else if sender.tag == 2 {
             self.delegate?.playPauseTrack()
-        } else if sender.tag == 3 {
-            self.delegate?.nextTrack()
         } else if sender.tag == 4 {
-            self.delegate?.previousTrack()
+            if !self.isSeeking {
+                self.delegate?.previousTrack()
+            }
+            self.seekTimer?.invalidate()
+            self.isSeeking = false
+            self.nowPlaying = self.shouldResume
+            self.delegate?.seekBackward(begin: false)
+        } else if sender.tag == 5 {
+            self.delegate?.favorite()
+        } else if sender.tag == 6 {
+            self.delegate?.dislike()
         }
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
+            sender.transform = CGAffineTransform.identity
+            sender.superview?.backgroundColor = UIColor(white: 0.9, alpha: 0.0)
+        }, completion: nil)
     }
     
     @IBAction func mediaButtonTouchDown(sender: UIButton) {
-        
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
+            sender.transform = CGAffineTransform.identity.scaledBy(x: 0.8, y: 0.8)
+            sender.superview?.backgroundColor = UIColor(white: 0.9, alpha: 1.0)
+        }, completion: nil)
+        if sender.tag == 1 || sender.tag == 3 {
+            self.shouldResume = self._nowPlaying
+            self.seekTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { (timer) in
+                self.isSeeking = true
+                self.nowPlaying = false
+                self.delegate?.seekForward(begin: true)
+            })
+        } else if sender.tag == 4 {
+            self.shouldResume = self._nowPlaying
+            self.seekTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false, block: { (timer) in
+                self.isSeeking = true
+                self.nowPlaying = false
+                self.delegate?.seekBackward(begin: true)
+            })
+        }
     }
     
     @IBAction func mediaButtonTouchDragExit(sender: UIButton) {
-        
+        UIView.animate(withDuration: 0.15, delay: 0.0, options: .curveEaseInOut, animations: {
+            sender.transform = CGAffineTransform.identity
+            sender.superview?.backgroundColor = UIColor(white: 0.9, alpha: 0.0)
+        }, completion: nil)
     }
     
     @IBAction func scrubBarTouchDown(sender: UISlider) {
-        self.scrubBarSlider?.setThumbImage(UIImage.circle(diameter: 31.0, fillColor: .darkGray), for: .normal)
+        let fillColor = self._currentTheme == .light ? UIColor.darkGray : UIColor.white
+        self.scrubBarSlider?.setThumbImage(UIImage.circle(diameter: 31.0, fillColor: fillColor), for: .normal)
         self.scrubBarBottomConstraint?.constant = self.scrubBarBottomFocused
         self.currentTimeTopConstraint?.constant = -12.0
         self.timeRemainingTopConstraint?.constant = -12.0
@@ -443,7 +681,8 @@ class NowPlayingViewController: UIViewController {
     }
     
     @IBAction func scrubBarTouchUpInside(sender: UISlider) {
-        self.scrubBarSlider?.setThumbImage(UIImage.circle(diameter: 6.0, fillColor: .darkGray, offset: CGPoint(x: 0.5, y: 0.5)), for: .normal)
+        let fillColor = self._currentTheme == .light ? UIColor.darkGray : UIColor.white
+        self.scrubBarSlider?.setThumbImage(UIImage.circle(diameter: 6.0, fillColor: fillColor, offset: CGPoint(x: 0.5, y: 0.5)), for: .normal)
         self.scrubBarBottomConstraint?.constant = self.scrubBarBottomDefault
         self.currentTimeTopConstraint?.constant = 0.0
         self.timeRemainingTopConstraint?.constant = 0.0
@@ -488,5 +727,17 @@ class NowPlayingViewController: UIViewController {
         }
         self.updateScrubBar(seconds: self._duration * Double(sender.value), updateBar: false)
         self._currentScrubBarValue = sender.value
+    }
+    
+    @IBAction func nowPlayingTapped(sender: UITapGestureRecognizer) {
+        self.delegate?.tapped()
+    }
+    
+    @IBAction func shuffleTapped(sender: UITapGestureRecognizer) {
+        self.delegate?.shuffleToggled()
+    }
+    
+    @IBAction func repeatTapped(sender: UITapGestureRecognizer) {
+        self.delegate?.repeatToggled()
     }
 }

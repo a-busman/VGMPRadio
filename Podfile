@@ -7,4 +7,6 @@ target 'VGMPRadio' do
     pod 'Kanna', :git => 'https://github.com/tid-kijyun/Kanna.git', :branch => 'feature/v4.0.0'
     pod 'Kingfisher'
     pod 'MarqueeLabel/Swift'
+    pod 'Fabric'
+    pod 'Crashlytics'
 end

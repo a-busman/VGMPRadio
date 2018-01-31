@@ -21,6 +21,16 @@ class Util {
             return UIColor(white: 0.0, alpha: 0.75)
         }
     }
+    class var uiLightColor: UIColor {
+        get {
+            return UIColor(red: 0.973, green: 0.973, blue: 0.988, alpha: 1.0)
+        }
+    }
+    class var uiDarkColor: UIColor {
+        get {
+            return UIColor(white: 0.25, alpha: 1.0)
+        }
+    }
     class func getManagedContext() -> NSManagedObjectContext? {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return nil
@@ -147,5 +157,46 @@ extension UIImage {
 extension AVPlayer {
     var isPlaying: Bool {
         return rate != 0 && error == nil
+    }
+}
+
+extension MutableCollection {
+    /// Shuffles the contents of this collection.
+    mutating func shuffle() {
+        let c = count
+        guard c > 1 else { return }
+        
+        for (firstUnshuffled, unshuffledCount) in zip(indices, stride(from: c, to: 1, by: -1)) {
+            let d: IndexDistance = numericCast(arc4random_uniform(numericCast(unshuffledCount)))
+            let i = index(firstUnshuffled, offsetBy: d)
+            swapAt(firstUnshuffled, i)
+        }
+    }
+}
+
+extension Sequence {
+    /// Returns an array with the contents of this sequence, shuffled.
+    func shuffled() -> [Element] {
+        var result = Array(self)
+        result.shuffle()
+        return result
+    }
+}
+
+extension CALayer {
+    func pause() {
+        let pausedTime = self.convertTime(CACurrentMediaTime(), from: nil)
+        self.speed = 0.0
+        self.timeOffset = pausedTime
+    }
+    
+    func resume() {
+        let pausedTime = self.timeOffset
+        self.speed = 1.0
+        self.timeOffset = 0.0
+        self.beginTime = 0.0
+        
+        let timeSincePause = self.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+        self.beginTime = timeSincePause
     }
 }
