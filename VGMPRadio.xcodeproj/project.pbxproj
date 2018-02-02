@@ -10,6 +10,7 @@
 		AC44194C82E887D5B602ECEE /* Pods_VGMPRadio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B762DCDDF46B07D217175AD1 /* Pods_VGMPRadio.framework */; };
 		FA0AD313201D98F30084C4F6 /* PlayShuffleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA0AD311201D98F30084C4F6 /* PlayShuffleTableViewCell.swift */; };
 		FA0AD314201D98F30084C4F6 /* PlayShuffleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA0AD312201D98F30084C4F6 /* PlayShuffleTableViewCell.xib */; };
+		FA6148252022DA5900EE7105 /* IPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA6148232022DA5900EE7105 /* IPad.storyboard */; };
 		FA67362C201C117A002DAFD7 /* ScrubBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA67362B201C117A002DAFD7 /* ScrubBar.swift */; };
 		FA673635201D4565002DAFD7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FA673637201D4565002DAFD7 /* Localizable.strings */; };
 		FA71010C201189C300E1C9EB /* NowPlayingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA71010B201189C300E1C9EB /* NowPlayingViewController.swift */; };
@@ -34,6 +35,7 @@
 		F1E0310DEC4EDD52629B84D5 /* Pods-VGMPRadio.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VGMPRadio.release.xcconfig"; path = "Pods/Target Support Files/Pods-VGMPRadio/Pods-VGMPRadio.release.xcconfig"; sourceTree = "<group>"; };
 		FA0AD311201D98F30084C4F6 /* PlayShuffleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayShuffleTableViewCell.swift; sourceTree = "<group>"; };
 		FA0AD312201D98F30084C4F6 /* PlayShuffleTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayShuffleTableViewCell.xib; sourceTree = "<group>"; };
+		FA6148242022DA5900EE7105 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/IPad.storyboard; sourceTree = "<group>"; };
 		FA67362B201C117A002DAFD7 /* ScrubBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrubBar.swift; sourceTree = "<group>"; };
 		FA673631201D4513002DAFD7 /* en-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-CA"; path = "en-CA.lproj/Main.strings"; sourceTree = "<group>"; };
 		FA673632201D4513002DAFD7 /* en-CA */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-CA"; path = "en-CA.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				FAB627BA200C770900D548D0 /* Util.swift */,
 				FA67362B201C117A002DAFD7 /* ScrubBar.swift */,
 				FA673637201D4565002DAFD7 /* Localizable.strings */,
+				FA6148232022DA5900EE7105 /* IPad.storyboard */,
 			);
 			path = VGMPRadio;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				FA673635201D4565002DAFD7 /* Localizable.strings in Resources */,
 				FA0AD314201D98F30084C4F6 /* PlayShuffleTableViewCell.xib in Resources */,
 				FAB627A92009C61B00D548D0 /* LaunchScreen.storyboard in Resources */,
+				FA6148252022DA5900EE7105 /* IPad.storyboard in Resources */,
 				FAB627A62009C61B00D548D0 /* Assets.xcassets in Resources */,
 				FAB627B9200AD51600D548D0 /* PlaylistSelectionCell.xib in Resources */,
 				FAB627A42009C61B00D548D0 /* Main.storyboard in Resources */,
@@ -326,6 +330,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		FA6148232022DA5900EE7105 /* IPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA6148242022DA5900EE7105 /* Base */,
+			);
+			name = IPad.storyboard;
+			sourceTree = "<group>";
+		};
 		FA673637201D4565002DAFD7 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -411,7 +423,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -463,7 +475,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -481,7 +493,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D9J98STRHA;
 				INFOPLIST_FILE = VGMPRadio/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abusman.VGMPRadio;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -501,7 +513,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = D9J98STRHA;
 				INFOPLIST_FILE = VGMPRadio/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.abusman.VGMPRadio;
 				PRODUCT_NAME = "$(TARGET_NAME)";

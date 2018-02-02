@@ -138,7 +138,7 @@ class VGMPRadio {
                 newPlaylist.title = playlist.content
                 newPlaylist.hasNew = false
                 newPlaylist.index = Int16(i+1)  // +1 due to favorites list being first index always
-                newPlaylist.sourceUrl = URL(string: urlString)
+                newPlaylist.sourceUrl = urlString
                 playlistList.append(newPlaylist)
             }
         }
@@ -195,7 +195,7 @@ class VGMPRadio {
                     
                     if let schemeEnd = urlString.index(of: "/"),
                        let percentPath = urlString[schemeEnd...].addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) {
-                        song.sourceUrl = URL(string: "https:" + percentPath)
+                        song.sourceUrl = "https:" + percentPath
                     }
                     
                     if let artist = track["artist"] as? String {
@@ -207,7 +207,7 @@ class VGMPRadio {
                     if let albumArtUrl = track["artworkUrl"] as? String,
                        let schemeEnd = albumArtUrl.index(of: "/"),
                        let percentPath = albumArtUrl[schemeEnd...].addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) {
-                            song.albumArtUrl = URL(string: "https:" + percentPath)
+                            song.albumArtUrl = "https:" + percentPath
                     }
                     
                     if let title = track["title"] as? String {
@@ -254,7 +254,7 @@ class VGMPRadio {
             manager.session.getAllTasks { (tasks) in
                 tasks.forEach({$0.cancel()})
             }
-            manager.request(url).responseString(queue: DispatchQueue.global(qos: .default)) {
+            manager.request(URL(string: url)!).responseString(queue: DispatchQueue.global(qos: .default)) {
                 response in
                 if let error = response.error {
                     completionHandler(.failure(error), index, true, getNext)

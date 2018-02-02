@@ -73,7 +73,15 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var currentTimeTopConstraint:   NSLayoutConstraint?
     @IBOutlet weak var timeRemainingTopConstraint: NSLayoutConstraint?
     
+    @IBOutlet weak var thumbsDownTrailingConstraint: NSLayoutConstraint?
+    @IBOutlet weak var prevTrackTrailingConstraint:  NSLayoutConstraint?
+    @IBOutlet weak var nextTrackLeadingConstraint:   NSLayoutConstraint?
+    @IBOutlet weak var thumbsUpLeadingConstraint:    NSLayoutConstraint?
+    @IBOutlet weak var volumeWidthConstraint:        NSLayoutConstraint?
+    
     @IBOutlet weak var handleView: UIView?
+    
+    @IBOutlet weak var ipadBlurView: UIVisualEffectView?
     
     var handleShape: CAShapeLayer?
         
@@ -101,6 +109,8 @@ class NowPlayingViewController: UIViewController {
     let minimumArtTopConstraint:      CGFloat =    5.0
     let maximumArtConstraints:        CGFloat =   63.0
     let scrubPlayingConstraints:      CGFloat =   50.0
+    
+    var buttonSpacing: CGFloat = 25.0
     
     let artPlayingConstraints: CGFloat = 32.0
 
@@ -164,9 +174,14 @@ class NowPlayingViewController: UIViewController {
                 self.playPauseSmallButton?.setImage(self.pauseSmallImage, for: .normal)
                 self.playPauseButton?.setImage(self.pauseImage, for: .normal)
                 if self.isMaximized {
-                    self.albumArtTopConstraint?.constant      =  self.artPlayingConstraints
-                    self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints
-                    self.albumArtTrailingConstraint?.constant = -self.artPlayingConstraints
+                    self.albumArtTopConstraint?.constant = self.artPlayingConstraints
+                    if self.view.frame.width == 320.0 {
+                        self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints + 20.0
+                        self.albumArtTrailingConstraint?.constant = -(self.artPlayingConstraints + 20.0)
+                    } else {
+                        self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints
+                        self.albumArtTrailingConstraint?.constant = -self.artPlayingConstraints
+                    }
                     self.view.setNeedsLayout()
                     UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.65, initialSpringVelocity: 0.0, options: .curveEaseInOut, animations: {
                         self.backgroundImageView?.alpha = 1.0
@@ -177,7 +192,11 @@ class NowPlayingViewController: UIViewController {
                 self.playPauseSmallButton?.setImage(self.playSmallImage, for: .normal)
                 self.playPauseButton?.setImage(self.playImage, for: .normal)
                 if self.isMaximized {
-                    self.albumArtTopConstraint?.constant      =  self.maximumArtConstraints
+                    if self.view.frame.width == 320.0 {
+                        self.albumArtTopConstraint?.constant = self.artPlayingConstraints
+                    } else {
+                        self.albumArtTopConstraint?.constant =  self.maximumArtConstraints
+                    }
                     self.albumArtLeadingConstraint?.constant  =  self.maximumArtConstraints
                     self.albumArtTrailingConstraint?.constant = -self.maximumArtConstraints
                     self.view.setNeedsLayout()
@@ -198,6 +217,7 @@ class NowPlayingViewController: UIViewController {
             self._currentTheme = newValue
             if newValue == .light {
                 self.visualEffectView?.effect = UIBlurEffect(style: .light)
+                self.ipadBlurView?.effect = UIBlurEffect(style: .light)
                 self.titleSmallLabel?.textColor = .black
                 self.titleMarquee?.textColor = .black
                 self.gameMarquee?.textColor = .black
@@ -218,6 +238,7 @@ class NowPlayingViewController: UIViewController {
                 self.thumbsDownFilledImage = #imageLiteral(resourceName: "thumbs-down-filled")
             } else {
                 self.visualEffectView?.effect = UIBlurEffect(style: .dark)
+                self.ipadBlurView?.effect = UIBlurEffect(style: .dark)
                 self.titleSmallLabel?.textColor = .white
                 self.titleMarquee?.textColor = .white
                 self.gameMarquee?.textColor = .white
@@ -278,6 +299,7 @@ class NowPlayingViewController: UIViewController {
         self.backgroundAlbumArtWidthConstraint?.constant  = self.minimumBackgroundArtConstraints
         self.backgroundAlbumArtHeightConstraint?.constant = self.minimumBackgroundArtConstraints
         self.prevTrackButton?.setImage(self.prevImage, for: .normal)
+        self.splitViewController?.preferredDisplayMode = .allVisible
     }
 
     override func didReceiveMemoryWarning() {
@@ -288,6 +310,13 @@ class NowPlayingViewController: UIViewController {
         super.viewDidLayoutSubviews()
         if self._firstLoad {
             self.addDragHandle()
+            if self.view.frame.width == 320.0 {
+                self.thumbsDownTrailingConstraint?.constant = -15.0
+                self.prevTrackTrailingConstraint?.constant  = -15.0
+                self.nextTrackLeadingConstraint?.constant   =  15.0
+                self.thumbsUpLeadingConstraint?.constant    =  15.0
+                self.volumeWidthConstraint?.constant        = 220.0
+            }
             self.minimumArtTrailingConstraint = -(self.view.frame.width - 70.0)
             self.albumArtTrailingConstraint?.constant = self.minimumArtTrailingConstraint
             self.albumArtImageView?.layer.borderColor = UIColor(white: 0.8, alpha: 1.0).cgColor
@@ -365,10 +394,11 @@ class NowPlayingViewController: UIViewController {
         }
     }
     func updateViewOnTap(maximized: Bool, duration: TimeInterval) {
-        self.isMaximized = maximized
         if maximized {
-            self.titleMarquee?.restartLabel()
-            self.gameMarquee?.restartLabel()
+            if !self.isMaximized {
+                self.titleMarquee?.restartLabel()
+                self.gameMarquee?.restartLabel()
+            }
             if self.volumeViewPlaceholder != nil {
                 if self.volumeView.superview == nil {
                     self.volumeView = MPVolumeView(frame: self.volumeViewPlaceholder!.bounds)
@@ -402,10 +432,19 @@ class NowPlayingViewController: UIViewController {
             }
             if self._nowPlaying {
                 self.albumArtTopConstraint?.constant      =  self.artPlayingConstraints
-                self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints
-                self.albumArtTrailingConstraint?.constant = -self.artPlayingConstraints
+                if self.view.frame.width == 320.0 {
+                    self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints + 20.0
+                    self.albumArtTrailingConstraint?.constant = -(self.artPlayingConstraints + 20.0)
+                } else {
+                    self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints
+                    self.albumArtTrailingConstraint?.constant = -self.artPlayingConstraints
+                }
             } else {
-                self.albumArtTopConstraint?.constant      =  self.maximumArtConstraints
+                if self.view.frame.width == 320.0 {
+                    self.albumArtTopConstraint?.constant = self.artPlayingConstraints
+                } else {
+                    self.albumArtTopConstraint?.constant =  self.maximumArtConstraints
+                }
                 self.albumArtLeadingConstraint?.constant  =  self.maximumArtConstraints
                 self.albumArtTrailingConstraint?.constant = -self.maximumArtConstraints
             }
@@ -449,6 +488,7 @@ class NowPlayingViewController: UIViewController {
             }
             self.view.layoutIfNeeded()
         }, completion: nil)
+        self.isMaximized = maximized
         
     }
     
@@ -509,10 +549,19 @@ class NowPlayingViewController: UIViewController {
                 self.airPlayViewPlaceholder?.addSubview(self.airPlayView)
             }
         }
+        
         let maxConstraint = self._nowPlaying ? self.artPlayingConstraints : self.maximumArtConstraints
-        self.albumArtTopConstraint?.constant = ((maxConstraint - self.minimumArtTopConstraint) * percentage) + self.minimumArtTopConstraint
-        self.albumArtLeadingConstraint?.constant = ((maxConstraint - self.minimumArtLeadingConstraint) * percentage) + self.minimumArtLeadingConstraint
-        self.albumArtTrailingConstraint?.constant = self.minimumArtTrailingConstraint + ((-self.minimumArtTrailingConstraint - maxConstraint) * percentage)
+        if self.view.frame.width == 320.0 {
+            self.albumArtTopConstraint?.constant = ((self.artPlayingConstraints - self.minimumArtTopConstraint) * percentage) + self.minimumArtTopConstraint
+            let newMax = self._nowPlaying ? self.artPlayingConstraints + 20.0 : self.maximumArtConstraints
+            self.albumArtLeadingConstraint?.constant = ((newMax - self.minimumArtLeadingConstraint) * percentage) + self.minimumArtLeadingConstraint
+            self.albumArtTrailingConstraint?.constant = self.minimumArtTrailingConstraint + ((-self.minimumArtTrailingConstraint - newMax) * percentage)
+        } else {
+            self.albumArtTopConstraint?.constant = ((maxConstraint - self.minimumArtTopConstraint) * percentage) + self.minimumArtTopConstraint
+            self.albumArtLeadingConstraint?.constant = ((maxConstraint - self.minimumArtLeadingConstraint) * percentage) + self.minimumArtLeadingConstraint
+            self.albumArtTrailingConstraint?.constant = self.minimumArtTrailingConstraint + ((-self.minimumArtTrailingConstraint - maxConstraint) * percentage)
+        }
+
         self.view.layoutIfNeeded()
         
         self.playPauseSmallView?.alpha = max(1.0 - percentage * 4.0, 0.0)
@@ -666,8 +715,13 @@ class NowPlayingViewController: UIViewController {
         if !self._nowPlaying {
             self.albumArtTopConstraint?.constant = self.artPlayingConstraints
         } else {
-            self.albumArtLeadingConstraint?.constant  =  self.scrubPlayingConstraints
-            self.albumArtTrailingConstraint?.constant = -self.scrubPlayingConstraints
+            if self.view.frame.width == 320.0 {
+                self.albumArtLeadingConstraint?.constant  =  self.scrubPlayingConstraints + 10.0
+                self.albumArtTrailingConstraint?.constant = -(self.scrubPlayingConstraints + 10.0)
+            } else {
+                self.albumArtLeadingConstraint?.constant  =  self.scrubPlayingConstraints
+                self.albumArtTrailingConstraint?.constant = -self.scrubPlayingConstraints
+            }
         }
         if sender.value < 0.11 {
             self.currentTimeTopConstraint?.constant = self.timeMovedDownValue
@@ -684,22 +738,39 @@ class NowPlayingViewController: UIViewController {
         let fillColor = self._currentTheme == .light ? UIColor.darkGray : UIColor.white
         self.scrubBarSlider?.setThumbImage(UIImage.circle(diameter: 6.0, fillColor: fillColor, offset: CGPoint(x: 0.5, y: 0.5)), for: .normal)
         self.scrubBarBottomConstraint?.constant = self.scrubBarBottomDefault
-        self.currentTimeTopConstraint?.constant = 0.0
-        self.timeRemainingTopConstraint?.constant = 0.0
-        if sender.value < 0.11 {
-            self.currentTimeTopConstraint?.constant = 15.0
-        } else if sender.value > 0.87 {
-            self.timeRemainingTopConstraint?.constant = 15.0
+        let device = UIDevice.current.userInterfaceIdiom
+        if device != .pad {
+            self.currentTimeTopConstraint?.constant = 0.0
+            self.timeRemainingTopConstraint?.constant = 0.0
+            if sender.value < 0.11 {
+                self.currentTimeTopConstraint?.constant = 15.0
+            } else if sender.value > 0.87 {
+                self.timeRemainingTopConstraint?.constant = 15.0
+            }
+            self.view.layoutIfNeeded()
         }
-        self.view.layoutIfNeeded()
         if !self._nowPlaying {
-            self.albumArtTopConstraint?.constant = self.maximumArtConstraints
+            if self.view.frame.width == 320.0 {
+                self.albumArtTopConstraint?.constant = self.artPlayingConstraints
+            } else {
+                self.albumArtTopConstraint?.constant = self.maximumArtConstraints
+            }
         } else {
-            self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints
-            self.albumArtTrailingConstraint?.constant = -self.artPlayingConstraints
+            if self.view.frame.width == 320.0 {
+                self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints + 20.0
+                self.albumArtTrailingConstraint?.constant = -(self.artPlayingConstraints + 20.0)
+            } else {
+                self.albumArtLeadingConstraint?.constant  =  self.artPlayingConstraints
+                self.albumArtTrailingConstraint?.constant = -self.artPlayingConstraints
+            }
         }
-        self.currentTimeTopConstraint?.constant = 0.0
-        self.timeRemainingTopConstraint?.constant = 0.0
+        if device == .pad {
+            self.currentTimeTopConstraint?.constant = -12.0
+            self.timeRemainingTopConstraint?.constant = -12.0
+        } else {
+            self.currentTimeTopConstraint?.constant = 0.0
+            self.timeRemainingTopConstraint?.constant = 0.0
+        }
         UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.6, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.view.layoutIfNeeded()
         }, completion: nil)

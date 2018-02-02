@@ -27,6 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Setting category to AVAudioSessionCategoryPlayback failed.")
         }
+        
+        var storyboard: UIStoryboard!
+        let device = UIDevice.current.userInterfaceIdiom
+        if device == .pad {
+            storyboard = UIStoryboard(name: "IPad", bundle: nil)
+        } else {
+            storyboard = UIStoryboard(name: "Main", bundle: nil)
+        }
+        window?.rootViewController = storyboard.instantiateInitialViewController()
+        window?.makeKeyAndVisible()
+        
         return true
     }
 

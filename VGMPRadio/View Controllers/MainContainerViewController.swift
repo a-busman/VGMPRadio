@@ -218,11 +218,26 @@ class MainContainerViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? UINavigationController,
             segue.identifier == "song_list_segue" {
-            self.songListNavigationControllerContainer = vc.visibleViewController as? SongListViewController
-            self.songListNavigationControllerContainer?.delegate = self
-            self.songListNavigationControllerContainer?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Theme", style: .plain, target: self, action: #selector(self.themeChange))
+            if let songListController = vc.visibleViewController as? SongListViewController {
+                self.songListNavigationControllerContainer = songListController
+                self.songListNavigationControllerContainer?.delegate = self
+                self.songListNavigationControllerContainer?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Theme", style: .plain, target: self, action: #selector(self.themeChange))
+            }
+
 
             //self.songListNavigationControllerContainer?.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteAll))
+        } else if let vc = segue.destination as? UISplitViewController,
+            segue.identifier == "ipad_embed" {
+            if let navController = vc.viewControllers.first as? UINavigationController,
+                let songListController = navController.visibleViewController as? SongListViewController {
+                self.songListNavigationControllerContainer = songListController
+                self.songListNavigationControllerContainer?.delegate = self
+                self.songListNavigationControllerContainer?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Theme", style: .plain, target: self, action: #selector(self.themeChange))
+            }
+            if let nowPlayingController = vc.viewControllers[1] as? NowPlayingViewController {
+                self.nowPlayingViewController = nowPlayingController
+                self.nowPlayingViewController?.delegate = self
+            }
         } else if segue.identifier == "now_playing_segue" {
             self.nowPlayingViewController = segue.destination as? NowPlayingViewController
             self.nowPlayingViewController?.delegate = self
@@ -241,7 +256,11 @@ class MainContainerViewController: UIViewController {
     
     override func viewDidLayoutSubviews() {
         if self._firstLayout {
-            self.nowPlayingViewMinimumBottom = 60.0 + self.view.safeAreaInsets.bottom
+            if #available(iOS 11.0, *) {
+                self.nowPlayingViewMinimumBottom = 60.0 + self.view.safeAreaInsets.bottom
+            } else {
+                self.nowPlayingViewMinimumBottom = 60.0
+            }
             self._firstLayout = false
             self.nowPlayingViewController?.theme = self.currentTheme
             self.songListNavigationControllerContainer?.theme = self.currentTheme
@@ -432,27 +451,37 @@ class MainContainerViewController: UIViewController {
             self.nowPlayingViewController?.like(favorite: song.favorite, dislike: song.dislike)
             self.nowPlayingViewController?.titleSmallLabel?.text = song.title
             self.nowPlayingViewController?.duration = Double(song.length)
-            self.nowPlayingViewController?.albumArtImageView?.kf.setImage(with: song.albumArtUrl, placeholder: #imageLiteral(resourceName: "music_note"), options: [.transition(.fade(0.5))], progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
-                if image != nil {
-                    let mediaItemArtwork = MPMediaItemArtwork(boundsSize: CGSize(width: 768, height: 768), requestHandler: { (size) -> UIImage in
-                        if let scaledImage = image?.image(with: size) {
-                            return scaledImage
-                        } else {
-                            return image!
-                        }
-                    })
-                    self.nowPlayingViewController?.backgroundImageView?.image = image
-                    self.currentNowPlayingInfo[MPMediaItemPropertyArtwork] = mediaItemArtwork
-                    self.nowPlayingViewController?.hasAlbumArt = true
-                } else {
-                    self.nowPlayingViewController?.hasAlbumArt = false
-                    let mediaItemArtwork = MPMediaItemArtwork(boundsSize: CGSize(width: 768, height: 768), requestHandler: { (size) -> UIImage in
-                        return #imageLiteral(resourceName: "music_note")
-                    })
-                    self.currentNowPlayingInfo[MPMediaItemPropertyArtwork] = mediaItemArtwork
-                    self.nowPlayingViewController?.backgroundImageView?.image = nil
-                }
-            })
+            if let albumArtUrl = song.albumArtUrl {
+                self.nowPlayingViewController?.albumArtImageView?.kf.setImage(with: URL(string: albumArtUrl)!, placeholder: #imageLiteral(resourceName: "music_note"), options: [.transition(.fade(0.5))], progressBlock: nil, completionHandler: { (image, error, cacheType, url) in
+                    if image != nil {
+                        let mediaItemArtwork = MPMediaItemArtwork(boundsSize: CGSize(width: 768, height: 768), requestHandler: { (size) -> UIImage in
+                            if let scaledImage = image?.image(with: size) {
+                                return scaledImage
+                            } else {
+                                return image!
+                            }
+                        })
+                        self.nowPlayingViewController?.backgroundImageView?.image = image
+                        self.currentNowPlayingInfo[MPMediaItemPropertyArtwork] = mediaItemArtwork
+                        self.nowPlayingViewController?.hasAlbumArt = true
+                    } else {
+                        self.nowPlayingViewController?.hasAlbumArt = false
+                        let mediaItemArtwork = MPMediaItemArtwork(boundsSize: CGSize(width: 768, height: 768), requestHandler: { (size) -> UIImage in
+                            return #imageLiteral(resourceName: "music_note")
+                        })
+                        self.currentNowPlayingInfo[MPMediaItemPropertyArtwork] = mediaItemArtwork
+                        self.nowPlayingViewController?.backgroundImageView?.image = nil
+                    }
+                })
+            } else {
+                self.nowPlayingViewController?.albumArtImageView?.image = #imageLiteral(resourceName: "music_note")
+                self.nowPlayingViewController?.hasAlbumArt = false
+                let mediaItemArtwork = MPMediaItemArtwork(boundsSize: CGSize(width: 768, height: 768), requestHandler: { (size) -> UIImage in
+                    return #imageLiteral(resourceName: "music_note")
+                })
+                self.currentNowPlayingInfo[MPMediaItemPropertyArtwork] = mediaItemArtwork
+                self.nowPlayingViewController?.backgroundImageView?.image = nil
+            }
         }
         UserDefaults.standard.set(Int(self.currentPlaylist?.index ?? -1), forKey: "lastPlaylistIndex")
         UserDefaults.standard.set(Int(self.currentSong?.audioId ?? -1), forKey: "lastSongId")
@@ -472,7 +501,7 @@ class MainContainerViewController: UIViewController {
         if let currentItem = player.currentItem {
             NotificationCenter.default.removeObserver(self, name: .AVPlayerItemDidPlayToEndTime, object: currentItem)
         }
-        let playerItem = AVPlayerItem(url: url)
+        let playerItem = AVPlayerItem(url: URL(string: url)!)
         NotificationCenter.default.addObserver(self, selector: #selector(self.playerDidFinishPlaying), name: .AVPlayerItemDidPlayToEndTime, object: playerItem)
         player.replaceCurrentItem(with: playerItem)
         if play {

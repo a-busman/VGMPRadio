@@ -696,12 +696,14 @@
                         <outlet property="gameMarquee" destination="Vdg-XQ-4md" id="RWG-MH-Cyp"/>
                         <outlet property="handleView" destination="f6a-AX-46s" id="73K-8F-LYt"/>
                         <outlet property="nextTrackButton" destination="GPQ-nn-f0o" id="CxR-Iq-tq6"/>
+                        <outlet property="nextTrackLeadingConstraint" destination="6n1-H4-eWU" id="Gdn-SK-QLr"/>
                         <outlet property="nextTrackSmallButton" destination="Kaa-DM-LgL" id="qIw-0c-19f"/>
                         <outlet property="nextTrackSmallView" destination="LM1-kK-cJg" id="o73-PI-Cdu"/>
                         <outlet property="playPauseButton" destination="Vrk-Lu-VdW" id="XZR-9p-7Uc"/>
                         <outlet property="playPauseSmallButton" destination="GzU-WU-OKY" id="KdI-3g-5xp"/>
                         <outlet property="playPauseSmallView" destination="SET-nm-6EA" id="PFP-Zb-fzg"/>
                         <outlet property="prevTrackButton" destination="vbh-CN-ag5" id="z62-Oj-dqV"/>
+                        <outlet property="prevTrackTrailingConstraint" destination="RBe-5g-r2i" id="b02-WX-5Lp"/>
                         <outlet property="repeatImage" destination="POp-nV-YnC" id="cUv-Bd-0dH"/>
                         <outlet property="repeatLabel" destination="pWt-AB-IJn" id="5xw-3p-U78"/>
                         <outlet property="repeatView" destination="Sok-Cf-0db" id="Jdg-FT-xED"/>
@@ -712,7 +714,9 @@
                         <outlet property="shuffleLabel" destination="FP6-ep-FyO" id="Kcj-8A-XO6"/>
                         <outlet property="shuffleView" destination="ddR-to-Tt1" id="yce-bx-Hh8"/>
                         <outlet property="thumbsDownButton" destination="Uud-hf-CrY" id="aF9-Rr-hxV"/>
+                        <outlet property="thumbsDownTrailingConstraint" destination="et0-ss-16H" id="CGX-iQ-Cmc"/>
                         <outlet property="thumbsUpButton" destination="veO-k2-2eK" id="9p2-bn-ECh"/>
+                        <outlet property="thumbsUpLeadingConstraint" destination="jtO-KN-MVf" id="5Ol-Lx-BSg"/>
                         <outlet property="timeRemainingLabel" destination="nqx-3O-DT3" id="MhV-ut-hsF"/>
                         <outlet property="timeRemainingTopConstraint" destination="x1i-lm-G97" id="0oq-ck-Lwf"/>
                         <outlet property="titleMarquee" destination="F4W-cy-57n" id="vOl-UT-Ssn"/>
@@ -721,6 +725,7 @@
                         <outlet property="volumeDownImageView" destination="WUS-wl-X2e" id="IKB-2u-40q"/>
                         <outlet property="volumeUpImageView" destination="dSP-Ah-gk9" id="DNG-rL-kwj"/>
                         <outlet property="volumeViewPlaceholder" destination="rJ6-Sr-t08" id="Ox8-eb-J9l"/>
+                        <outlet property="volumeWidthConstraint" destination="5rO-8f-tqJ" id="rwo-he-fHN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oRn-nK-eXd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -740,7 +745,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-191.19999999999999" y="1045.7271364317842"/>
+            <point key="canvasLocation" x="137" y="939"/>
         </scene>
     </scenes>
     <resources>

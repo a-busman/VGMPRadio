@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import CoreData
+import Kingfisher
 
 protocol SongListViewControllerDelegate {
     func songSelected(playlist: Playlist, songIndex: Int, playlistIndex: Int, play: Bool)
@@ -245,7 +246,12 @@ class SongListViewController: UIViewController {
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.searchBar.placeholder = "Search Songs"
-        self.navigationItem.searchController = self.searchController
+        if #available(iOS 11.0, *) {
+            self.navigationItem.searchController = self.searchController
+            self.navigationItem.hidesSearchBarWhenScrolling = false
+        } else {
+            self.tableView?.tableHeaderView = self.searchController.searchBar
+        }
         self.definesPresentationContext = true
     }
     
@@ -370,7 +376,7 @@ extension SongListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func refreshPlaying() {
-        if self.currentlyPlayingPlaylist == self.selectedPlaylistIndex {
+        if self.currentlyPlayingPlaylist == self.selectedPlaylistIndex && self.currentlyPlayingPlaylist < self.playlists.count {
             let arrayToDisplay = self.isFiltering() ? self.filteredSongs : Array(self.playlists[self.currentlyPlayingPlaylist].songs!) as! [Song]
             var index = arrayToDisplay.index(where: { (item) -> Bool in
                 item.audioId == self.currentlyPlayingSong
@@ -478,7 +484,11 @@ extension SongListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleLabel?.text = song.title
         cell.artistLabel?.text = song.game
         cell.albumArtImage?.kf.cancelDownloadTask()
-        cell.albumArtImage?.kf.setImage(with: song.albumArtUrl, placeholder: #imageLiteral(resourceName: "music_note"), options: [.transition(.fade(0.5))] , progressBlock: nil, completionHandler: nil)
+        if let albumArtUrl = song.albumArtUrl {
+            cell.albumArtImage?.kf.setImage(with: URL(string: albumArtUrl)!, placeholder: #imageLiteral(resourceName: "music_note"), options: [.transition(.fade(0.5))] , progressBlock: nil, completionHandler: nil)
+        } else {
+            cell.albumArtImage?.image = #imageLiteral(resourceName: "music_note")
+        }
         if self.currentlyPlayingPlaylist == self.selectedPlaylistIndex && self.currentlyPlayingSong == Int(song.audioId) {
             if self.isPlaying {
                 cell.play()
@@ -598,7 +608,11 @@ extension SongListViewController: UICollectionViewDataSource, UICollectionViewDe
         
         cell.selectCell(animated: true, theme: self._currentTheme)
         self.selectedPlaylistIndex = indexPath.item
-        self.tableView?.reloadData()
+        if self.isFiltering() {
+            self.filterContentForSearchText(self.searchController.searchBar.text!)
+        } else {
+            self.tableView?.reloadData()
+        }
         if (playlist.songs?.count ?? 0) == 0 {
             self.songActivityIndicator?.startAnimating()
             VGMPRadio.getSongs(playlist: playlist, index: self.selectedPlaylistIndex, getNext: false, withCompletion: self.songsCompletionHandler)
