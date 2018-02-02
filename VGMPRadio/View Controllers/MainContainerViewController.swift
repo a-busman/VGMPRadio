@@ -664,7 +664,6 @@ class MainContainerViewController: UIViewController {
                     }
                 }
             }
-            self.currentlyPlaying = true
         }
     }
     

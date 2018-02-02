@@ -652,9 +652,11 @@ class NowPlayingViewController: UIViewController {
                 self.delegate?.nextTrack()
             }
             self.seekTimer?.invalidate()
-            self.isSeeking = false
-            self.nowPlaying = self.shouldResume
-            self.delegate?.seekForward(begin: false)
+            if self.isSeeking {
+                self.isSeeking = false
+                self.nowPlaying = self.shouldResume
+                self.delegate?.seekForward(begin: false)
+            }
         } else if sender.tag == 2 {
             self.delegate?.playPauseTrack()
         } else if sender.tag == 4 {
@@ -662,9 +664,11 @@ class NowPlayingViewController: UIViewController {
                 self.delegate?.previousTrack()
             }
             self.seekTimer?.invalidate()
-            self.isSeeking = false
-            self.nowPlaying = self.shouldResume
-            self.delegate?.seekBackward(begin: false)
+            if self.isSeeking {
+                self.isSeeking = false
+                self.nowPlaying = self.shouldResume
+                self.delegate?.seekBackward(begin: false)
+            }
         } else if sender.tag == 5 {
             self.delegate?.favorite()
         } else if sender.tag == 6 {
@@ -703,6 +707,21 @@ class NowPlayingViewController: UIViewController {
             sender.transform = CGAffineTransform.identity
             sender.superview?.backgroundColor = UIColor(white: 0.9, alpha: 0.0)
         }, completion: nil)
+        if sender.tag == 1 || sender.tag == 3 {
+            self.seekTimer?.invalidate()
+            if self.isSeeking {
+                self.isSeeking = false
+                self.nowPlaying = self.shouldResume
+                self.delegate?.seekForward(begin: false)
+            }
+        } else if sender.tag == 4 {
+            self.seekTimer?.invalidate()
+            if self.isSeeking {
+                self.isSeeking = false
+                self.nowPlaying = self.shouldResume
+                self.delegate?.seekBackward(begin: false)
+            }
+        }
     }
     
     @IBAction func scrubBarTouchDown(sender: UISlider) {
