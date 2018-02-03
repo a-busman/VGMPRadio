@@ -660,19 +660,30 @@ extension SongListViewController: UICollectionViewDataSource, UICollectionViewDe
             return
         }
         if let songs = result.value {
-            if (self.playlists[index].songs?.count ?? 0) != 0 && songs.count > (self.playlists[index].songs?.count ?? 0) {
-                self.playlists[index].hasNew = true
-                if switchQueue {
-                    DispatchQueue.main.async {
+            if songs.count > 0 && index < self.playlists.count {
+                if (self.playlists[index].songs?.count ?? 0) != 0 && songs.count > (self.playlists[index].songs?.count ?? 0) {
+                    self.playlists[index].hasNew = true
+                    if switchQueue {
+                        DispatchQueue.main.async {
+                            self.playlistCollectionView.collectionViewLayout.invalidateLayout()
+                        }
+                    } else {
                         self.playlistCollectionView.collectionViewLayout.invalidateLayout()
                     }
-                } else {
-                    self.playlistCollectionView.collectionViewLayout.invalidateLayout()
                 }
-            }
-            self.playlists[index].songs = NSOrderedSet(array: songs)
-            if switchQueue {
-                DispatchQueue.main.sync {
+                self.playlists[index].songs = NSOrderedSet(array: songs)
+                if switchQueue {
+                    DispatchQueue.main.sync {
+                        do {
+                            try Util.getManagedContext()?.save()
+                        } catch {
+                            fatalError("Failure to save context: \(error)")
+                        }
+                        if index == self.selectedPlaylistIndex {
+                            self.tableView?.reloadData()
+                        }
+                    }
+                } else {
                     do {
                         try Util.getManagedContext()?.save()
                     } catch {
@@ -681,15 +692,6 @@ extension SongListViewController: UICollectionViewDataSource, UICollectionViewDe
                     if index == self.selectedPlaylistIndex {
                         self.tableView?.reloadData()
                     }
-                }
-            } else {
-                do {
-                    try Util.getManagedContext()?.save()
-                } catch {
-                    fatalError("Failure to save context: \(error)")
-                }
-                if index == self.selectedPlaylistIndex {
-                    self.tableView?.reloadData()
                 }
             }
         }
