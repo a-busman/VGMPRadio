@@ -356,7 +356,6 @@ class MainContainerViewController: UIViewController {
             if self.isMaximized {
                 self.originalOffset = -(self.view.frame.height - 33.0)
                 self.targetOffset   = -self.nowPlayingViewMinimumBottom
-                self.nowPlayingViewController?.unbendDragHandle()
             } else {
                 self._snapshotView = self.songListView?.snapshotView(afterScreenUpdates: false)
                 if self._snapshotView != nil {
@@ -380,6 +379,24 @@ class MainContainerViewController: UIViewController {
                     self.nowPlayingView?.layer.cornerRadius = 12.0 * percentage
                     self.nowPlayingViewController?.updateView(percentage: percentage)
                 }
+            } else if self.originalOffset + y < -(self.view.frame.height - 33.0) {
+                self.nowPlayingViewTopConstraint?.constant = -(self.view.frame.height - 33.0)
+                self.shadowView?.alpha = percentage * 0.5
+                self.songListView?.transform = CGAffineTransform.identity.scaledBy(x: 1.0 - ((1 - 0.94) * percentage), y: 1.0 - ((1 - 0.94) * percentage))
+                
+                self.view.layoutIfNeeded()
+            } else if self.originalOffset + y > -self.nowPlayingViewMinimumBottom {
+                self.nowPlayingViewTopConstraint?.constant = -self.nowPlayingViewMinimumBottom
+                self.shadowView?.alpha = percentage * 0.5
+                self.songListView?.transform = CGAffineTransform.identity.scaledBy(x: 1.0 - ((1 - 0.94) * percentage), y: 1.0 - ((1 - 0.94) * percentage))
+                
+                self.view.layoutIfNeeded()
+            }
+            if percentage >= 0.995 {
+                self.nowPlayingViewController?.bendDragHandle()
+            } else if self.isMaximized {
+                self.nowPlayingViewController?.unbendDragHandle()
+
             }
         case .ended:
             NSLog("\(sender.velocity(in: self.view).y)")

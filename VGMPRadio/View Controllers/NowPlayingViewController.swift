@@ -126,6 +126,8 @@ class NowPlayingViewController: UIViewController {
     var shouldResume: Bool = false
     var seekTimer: Timer?
     
+    var dragHandleBent: Bool = false
+    
     var duration: Double {
         set(newValue) {
             if newValue != self._duration {
@@ -358,7 +360,8 @@ class NowPlayingViewController: UIViewController {
     
     func bendDragHandle() {
         if let handleShape = self.handleShape,
-           let handleView = self.handleView {
+           let handleView = self.handleView,
+           !self.dragHandleBent {
             let endPath = UIBezierPath()
             endPath.move(to: CGPoint(x: 0.0, y: 0.0))
             endPath.addLine(to: CGPoint(x: handleView.frame.width / 2.0, y: handleView.frame.height))
@@ -372,12 +375,14 @@ class NowPlayingViewController: UIViewController {
             animation.timingFunction = CAMediaTimingFunction(name: "easeInEaseOut")
             handleShape.add(animation, forKey: "path")
             handleShape.path = endPath.cgPath
+            self.dragHandleBent = true
         }
     }
     
     func unbendDragHandle() {
         if let handleShape = self.handleShape,
-            let handleView = self.handleView {
+            let handleView = self.handleView,
+            self.dragHandleBent {
             let path = UIBezierPath()
             
             path.move(to: CGPoint(x: 0.0, y: handleView.frame.height / 2.0))
@@ -391,6 +396,7 @@ class NowPlayingViewController: UIViewController {
             animation.timingFunction = CAMediaTimingFunction(name: "easeInEaseOut")
             handleShape.add(animation, forKey: "path")
             handleShape.path = path.cgPath
+            self.dragHandleBent = false
         }
     }
     func updateViewOnTap(maximized: Bool, duration: TimeInterval) {
