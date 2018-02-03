@@ -126,6 +126,11 @@ class SongListViewController: UIViewController {
             if let playlists = results.value {
                 self.playlists = playlists
                 DispatchQueue.main.sync {
+                    do {
+                        try Util.getManagedContext()?.save()
+                    } catch {
+                        fatalError("Failure to save context: \(error)")
+                    }
                     self.playlistCollectionView.reloadData()
                     if (self.playlists[currentPlaylist].songs?.count ?? 0) == 0 {
                         VGMPRadio.getSongs(playlist: playlists[currentPlaylist], index: currentPlaylist, getNext: false, withCompletion: self.songsCompletionHandler)
