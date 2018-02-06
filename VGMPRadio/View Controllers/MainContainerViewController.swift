@@ -82,6 +82,15 @@ class MainContainerViewController: UIViewController {
         
         let commandCenter = MPRemoteCommandCenter.shared()
         
+        commandCenter.togglePlayPauseCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
+            if self.currentlyPlaying {
+                self.doPause()
+            } else {
+                self.doPlay()
+            }
+            return .success
+        }
+        
         commandCenter.pauseCommand.addTarget { (event) -> MPRemoteCommandHandlerStatus in
             self.doPause()
             return .success
@@ -196,7 +205,7 @@ class MainContainerViewController: UIViewController {
         self.player?.automaticallyWaitsToMinimizeStalling = false
         self.player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1.0/60.0, preferredTimescale: 60), queue: nil, using: { time in
             self.currentNowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = time.seconds
-            if time.seconds > 0.0 {
+            if time.seconds > 0.0 && self.currentlyPlaying {
                 self.currentNowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 1.0
             } else {
                 self.currentNowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
@@ -528,7 +537,8 @@ class MainContainerViewController: UIViewController {
         self.currentNowPlayingInfo[MPMediaItemPropertyArtist] = song.game
         self.currentNowPlayingInfo[MPMediaItemPropertyAlbumTitle] = self.currentPlaylist?.title
         self.currentNowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = song.length
-        self.currentNowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
+        //self.currentNowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = 0.0
+        //self.currentNowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = 0.0
         self.updateNowPlayingInfo()
     }
     
