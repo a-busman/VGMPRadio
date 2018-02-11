@@ -500,6 +500,12 @@ class NowPlayingViewController: UIViewController {
     
     func updateNowPlaying(title: String?, game: String?, playlist: String?)
     {
+        self.playPauseButton?.isEnabled = true
+        self.nextTrackButton?.isEnabled = true
+        self.prevTrackButton?.isEnabled = true
+        self.scrubBarSlider?.isEnabled = true
+        self.thumbsUpButton?.isEnabled = true
+        self.thumbsDownButton?.isEnabled = true
         self.titleSmallLabel?.text = title
         if let titleMarquee = self.titleMarquee {
             titleMarquee.text = title

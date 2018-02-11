@@ -300,7 +300,11 @@ class SongListViewController: UIViewController {
         self.stop(song: self.currentlyPlayingSong, playlist: self.currentlyPlayingPlaylist)
         self.currentlyPlayingSong = song
         self.currentlyPlayingPlaylist = playlist
-        self.play(song: song, playlist: playlist)
+        if self.isPlaying {
+            self.play(song: song, playlist: playlist)
+        } else {
+            self.pause(song: song, playlist: playlist)
+        }
     }
     
     func updateSelectedPlaylist(index: Int, songIndex: Int) {

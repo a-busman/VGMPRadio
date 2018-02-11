@@ -51,7 +51,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQT-cK-ISq" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Song Selected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uQT-cK-ISq" customClass="MarqueeLabel" customModule="MarqueeLabel">
                                                                 <rect key="frame" x="5" y="352.5" width="365.5" height="27.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="27.5" id="7jO-K8-fFA"/>
@@ -70,14 +70,14 @@
                                                                         <real key="value" value="3"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="trailingBuffer">
-                                                                        <real key="value" value="40"/>
+                                                                        <real key="value" value="0.0"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="leadingBuffer">
-                                                                        <real key="value" value="27"/>
+                                                                        <real key="value" value="0.0"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukS-Mo-jbD" customClass="MarqueeLabel" customModule="MarqueeLabel">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukS-Mo-jbD" customClass="MarqueeLabel" customModule="MarqueeLabel">
                                                                 <rect key="frame" x="5" y="380" width="365.5" height="26.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="26.5" id="X1i-N0-js7"/>
@@ -184,6 +184,9 @@
                                                                         <integer key="value" value="10"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="QbY-k5-oeL" appends="YES" id="hGS-u2-rvW"/>
+                                                                </connections>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3qd-Pe-aOH">
                                                                 <rect key="frame" x="219" y="521" width="116" height="40"/>
@@ -228,11 +231,14 @@
                                                                         <integer key="value" value="10"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <outletCollection property="gestureRecognizers" destination="Pog-QZ-iC5" appends="YES" id="ejx-Wg-2A3"/>
+                                                                </connections>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5V2-q9-5lM" userLabel="Play Pause View">
                                                                 <rect key="frame" x="153" y="419.5" width="70" height="70"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7i-Qo-Lza">
+                                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R7i-Qo-Lza">
                                                                         <rect key="frame" x="21" y="17" width="36" height="36"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="R7i-Qo-Lza" secondAttribute="height" multiplier="1:1" id="GSl-th-Mgk"/>
@@ -262,7 +268,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlL-jz-u12" userLabel="Next Track View">
                                                                 <rect key="frame" x="248" y="429.5" width="50" height="50"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zri-Ie-bPr">
+                                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zri-Ie-bPr">
                                                                         <rect key="frame" x="12" y="15.5" width="30" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="20" id="Dbx-Qc-FkZ"/>
@@ -292,7 +298,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pEl-d3-YzD" userLabel="Prev Track View">
                                                                 <rect key="frame" x="78" y="429.5" width="50" height="50"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIq-qa-Lnh">
+                                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RIq-qa-Lnh">
                                                                         <rect key="frame" x="8" y="15.5" width="30" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="20" id="LGE-Ln-bnU"/>
@@ -319,7 +325,7 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
-                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1Ov-Z2-G0P" customClass="ScrubBar" customModule="VGMPRadio" customModuleProvider="target">
+                                                            <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="1Ov-Z2-G0P" customClass="ScrubBar" customModule="VGMPRadio" customModuleProvider="target">
                                                                 <rect key="frame" x="39" y="295.5" width="298" height="31"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="4PY-y5-82B"/>
@@ -333,14 +339,14 @@
                                                                     <action selector="scrubBarValueChangedWithSender:" destination="PYk-FS-0iX" eventType="valueChanged" id="pOP-jl-8rr"/>
                                                                 </connections>
                                                             </slider>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0:00" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7j-rK-0e5">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--:--" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7j-rK-0e5">
                                                                 <rect key="frame" x="40.5" y="313.5" width="32" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-0:00" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cmj-CX-H8o">
-                                                                <rect key="frame" x="295.5" y="313.5" width="39" height="18"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--:--" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cmj-CX-H8o">
+                                                                <rect key="frame" x="302.5" y="313.5" width="32" height="18"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
@@ -348,7 +354,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HVV-2o-MqN" userLabel="Thumbs Up View">
                                                                 <rect key="frame" x="323" y="439.5" width="30" height="30"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m0Y-4H-bU3">
+                                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m0Y-4H-bU3">
                                                                         <rect key="frame" x="5" y="5" width="20" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="m0Y-4H-bU3" secondAttribute="height" multiplier="1:1" id="Pmw-oU-pjm"/>
@@ -379,7 +385,7 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="okg-x1-BUb" userLabel="Thumbs Down View">
                                                                 <rect key="frame" x="23" y="439.5" width="30" height="30"/>
                                                                 <subviews>
-                                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYp-NV-icw">
+                                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gYp-NV-icw">
                                                                         <rect key="frame" x="5" y="5" width="20" height="20"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" secondItem="gYp-NV-icw" secondAttribute="height" multiplier="1:1" id="5xC-D8-Zwm"/>
@@ -517,6 +523,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nfU-AL-yR7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="QbY-k5-oeL">
+                    <connections>
+                        <action selector="shuffleTappedWithSender:" destination="PYk-FS-0iX" id="sDw-Su-GGg"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Pog-QZ-iC5">
+                    <connections>
+                        <action selector="repeatTappedWithSender:" destination="PYk-FS-0iX" id="zXR-S9-1cl"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="183" y="251"/>
         </scene>
