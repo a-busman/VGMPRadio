@@ -67,6 +67,7 @@ class MainContainerViewController: UIViewController {
         super.viewDidLoad()
         UIApplication.shared.beginReceivingRemoteControlEvents()
         self.currentTheme = Theme(rawValue: UserDefaults.standard.integer(forKey: "theme")) ?? .light
+        self.setNeedsStatusBarAppearanceUpdate()
         self.shuffle = UserDefaults.standard.bool(forKey: "shuffle")
         self.repeats = UserDefaults.standard.bool(forKey: "repeats")
         self.repeat1 = UserDefaults.standard.bool(forKey: "repeat1")
@@ -408,7 +409,6 @@ class MainContainerViewController: UIViewController {
 
             }
         case .ended:
-            NSLog("\(sender.velocity(in: self.view).y)")
             if (self.originalOffset + y > -self.view.frame.height / 2.0 && !(sender.velocity(in: self.view).y < -300.0)) || sender.velocity(in: self.view).y > 300.0  {
                 self.songListNavigationControllerContainer?.tableView?.reloadData()
                 let prevLocation = self.nowPlayingViewTopConstraint?.constant ?? 0
