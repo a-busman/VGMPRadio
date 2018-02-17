@@ -42,6 +42,7 @@ class NowPlayingViewController: UIViewController {
     @IBOutlet weak var scrubBarSlider:       ScrubBar?
     @IBOutlet weak var currentTimeLabel:     UILabel?
     @IBOutlet weak var timeRemainingLabel:   UILabel?
+    @IBOutlet weak var dividingLineView:     UIView?
     
     @IBOutlet weak var shuffleLabel: UILabel?
     @IBOutlet weak var shuffleImage: UIImageView?
@@ -458,6 +459,7 @@ class NowPlayingViewController: UIViewController {
                 self.playPauseSmallView?.alpha = 0.0
                 self.nextTrackSmallView?.alpha = 0.0
                 self.titleSmallLabel?.alpha = 0.0
+                self.dividingLineView?.alpha = 0.0
                 self.handleView?.alpha = 1.0
                 if self._nowPlaying {
                     self.backgroundImageView?.alpha = 1.0
@@ -477,6 +479,7 @@ class NowPlayingViewController: UIViewController {
                 self.playPauseSmallView?.alpha = 1.0
                 self.nextTrackSmallView?.alpha = 1.0
                 self.titleSmallLabel?.alpha = 1.0
+                self.dividingLineView?.alpha = 1.0
                 self.backgroundImageView?.alpha = 0.0
             }, completion: { (complete) in
                 self.volumeView.removeFromSuperview()
@@ -579,6 +582,7 @@ class NowPlayingViewController: UIViewController {
         self.playPauseSmallView?.alpha = max(1.0 - percentage * 4.0, 0.0)
         self.nextTrackSmallView?.alpha = max(1.0 - percentage * 4.0, 0.0)
         self.titleSmallLabel?.alpha = max(1.0 - percentage * 4.0, 0.0)
+        self.dividingLineView?.alpha = max(1.0 - percentage * 4.0, 0.0)
         self.handleView?.alpha = max(percentage * 2.0 - 1.0, 0.0)
         if self._nowPlaying {
             self.backgroundImageView?.alpha = percentage

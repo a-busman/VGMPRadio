@@ -87,7 +87,7 @@
             </objects>
             <point key="canvasLocation" x="975" y="134"/>
         </scene>
-        <!-- -->
+        <!--VGMPRadio-->
         <scene sceneID="Fbi-xm-TM8">
             <objects>
                 <viewController id="7Dk-J8-qlR" customClass="SongListViewController" customModule="VGMPRadio" customModuleProvider="target" sceneMemberID="viewController">
@@ -126,7 +126,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fYH-4P-MG6"/>
                     </view>
-                    <navigationItem key="navigationItem" title=" " id="bDC-LN-iJ9"/>
+                    <navigationItem key="navigationItem" title="VGMPRadio" id="bDC-LN-iJ9"/>
                     <connections>
                         <outlet property="addToPlaylistLabel" destination="5ar-wf-dQ9" id="ZDR-yB-Kck"/>
                         <outlet property="songActivityIndicator" destination="nZL-Fs-naY" id="1oE-47-lPf"/>
@@ -157,6 +157,13 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xTV-lV-vVb">
+                                            <rect key="frame" x="-0.5" y="0.0" width="375" height="0.5"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="0.5" id="fKL-GA-QBe"/>
+                                            </constraints>
+                                        </view>
                                         <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f6a-AX-46s">
                                             <rect key="frame" x="169" y="15" width="36" height="5"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -610,6 +617,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="A5t-01-CSv" firstAttribute="centerX" secondItem="T8a-f1-PNn" secondAttribute="centerX" id="01B-cB-hEH"/>
+                                        <constraint firstItem="xTV-lV-vVb" firstAttribute="top" secondItem="T8a-f1-PNn" secondAttribute="top" id="1El-ni-heT"/>
                                         <constraint firstItem="qgD-rP-LcS" firstAttribute="trailing" secondItem="T8a-f1-PNn" secondAttribute="trailing" constant="-63" id="2Wh-l6-41j"/>
                                         <constraint firstItem="LM1-kK-cJg" firstAttribute="trailing" secondItem="T8a-f1-PNn" secondAttribute="trailing" constant="-20" id="3f8-93-YKF"/>
                                         <constraint firstItem="rJ6-Sr-t08" firstAttribute="bottom" secondItem="0qR-lK-scZ" secondAttribute="top" constant="-20" id="4Va-aF-7DK"/>
@@ -639,6 +647,7 @@
                                         <constraint firstItem="F4W-cy-57n" firstAttribute="bottom" secondItem="T8a-f1-PNn" secondAttribute="bottom" constant="-225" id="U5z-XD-ZNK"/>
                                         <constraint firstItem="LM1-kK-cJg" firstAttribute="centerY" secondItem="SET-nm-6EA" secondAttribute="centerY" id="UvA-lU-bb7"/>
                                         <constraint firstItem="SET-nm-6EA" firstAttribute="trailing" secondItem="LM1-kK-cJg" secondAttribute="leading" constant="-15" id="ZGO-Zi-oXu"/>
+                                        <constraint firstItem="xTV-lV-vVb" firstAttribute="centerX" secondItem="T8a-f1-PNn" secondAttribute="centerX" id="ZVU-ys-grb"/>
                                         <constraint firstItem="SET-nm-6EA" firstAttribute="centerY" secondItem="pci-9a-sio" secondAttribute="centerY" id="ZcM-Rg-OoF"/>
                                         <constraint firstItem="pci-9a-sio" firstAttribute="leading" secondItem="T8a-f1-PNn" secondAttribute="leading" constant="75" id="aEo-tg-8Kq"/>
                                         <constraint firstItem="kf1-gY-JKu" firstAttribute="centerY" secondItem="bTM-KV-fHn" secondAttribute="centerY" id="eM9-3T-Ze8"/>
@@ -649,6 +658,7 @@
                                         <constraint firstItem="LM1-kK-cJg" firstAttribute="height" secondItem="SET-nm-6EA" secondAttribute="height" id="gqE-mf-dP8"/>
                                         <constraint firstItem="rJ6-Sr-t08" firstAttribute="centerX" secondItem="T8a-f1-PNn" secondAttribute="centerX" id="hbI-63-rfH"/>
                                         <constraint firstItem="kf1-gY-JKu" firstAttribute="leading" secondItem="bTM-KV-fHn" secondAttribute="trailing" constant="25" id="jtO-KN-MVf"/>
+                                        <constraint firstItem="xTV-lV-vVb" firstAttribute="width" secondItem="T8a-f1-PNn" secondAttribute="width" id="k2y-K8-Uyp"/>
                                         <constraint firstItem="dSP-Ah-gk9" firstAttribute="top" secondItem="rJ6-Sr-t08" secondAttribute="top" constant="0.5" id="kMr-RZ-Hle"/>
                                         <constraint firstItem="Vdg-XQ-4md" firstAttribute="leading" secondItem="F4W-cy-57n" secondAttribute="leading" id="lab-xw-M1A"/>
                                         <constraint firstItem="nqx-3O-DT3" firstAttribute="trailing" secondItem="A5t-01-CSv" secondAttribute="trailing" id="mb9-ed-H0C"/>
@@ -692,6 +702,7 @@
                         <outlet property="backgroundImageView" destination="nVU-T1-xs4" id="ybM-zr-49u"/>
                         <outlet property="currentTimeLabel" destination="czC-aw-UD9" id="jym-ZJ-Ifz"/>
                         <outlet property="currentTimeTopConstraint" destination="n4h-Pu-mwh" id="qOs-cU-fok"/>
+                        <outlet property="dividingLineView" destination="xTV-lV-vVb" id="DTR-bB-Hdb"/>
                         <outlet property="fakeVolumeSlider" destination="BfO-vg-yjv" id="DBQ-v7-59U"/>
                         <outlet property="gameMarquee" destination="Vdg-XQ-4md" id="RWG-MH-Cyp"/>
                         <outlet property="handleView" destination="f6a-AX-46s" id="73K-8F-LYt"/>

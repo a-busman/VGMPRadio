@@ -31,7 +31,6 @@ class SongListViewController: UIViewController {
     private var selectedPlaylistIndex: Int = 0
     private var currentlyPlayingSong: Int = -1
     private var currentlyPlayingPlaylist: Int = -1
-    private let logoView = UIImageView(image: #imageLiteral(resourceName: "vgmp_logo"))
     private let refreshControl = UIRefreshControl()
     private let searchController = UISearchController(searchResultsController: nil)
     private struct Const {
@@ -237,16 +236,6 @@ class SongListViewController: UIViewController {
     private func setupUI() {
         // Initial setup for image for Large NavBar state since the the screen always has Large NavBar once it gets opened
         guard let navigationBar = self.navigationController?.navigationBar else { return }
-        navigationBar.addSubview(self.logoView)
-        self.logoView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            self.logoView.leftAnchor.constraint(equalTo: navigationBar.leftAnchor,
-                                                constant: Const.ImageLeftMargin),
-            self.logoView.bottomAnchor.constraint(equalTo: navigationBar.bottomAnchor,
-                                                  constant: -Const.ImageBottomMarginForLargeState),
-            self.logoView.heightAnchor.constraint(equalToConstant: Const.ImageSizeForLargeState),
-            self.logoView.widthAnchor.constraint(equalTo: self.logoView.heightAnchor)
-        ])
         
         self.searchController.searchResultsUpdater = self
         self.searchController.obscuresBackgroundDuringPresentation = false
@@ -258,37 +247,6 @@ class SongListViewController: UIViewController {
             self.tableView?.tableHeaderView = self.searchController.searchBar
         }
         self.definesPresentationContext = true
-    }
-    
-    private func moveAndResizeImage(for height: CGFloat) {
-        let coeff: CGFloat = {
-            let delta = height - Const.NavBarHeightSmallState
-            let heightDifferenceBetweenStates = (Const.NavBarHeightLargeState - Const.NavBarHeightSmallState)
-            return delta / heightDifferenceBetweenStates
-        }()
-        
-        let factor = Const.ImageSizeForSmallState / Const.ImageSizeForLargeState
-        let navWidth = ((self.navigationController?.navigationBar.frame.width ?? 0) / 2.0)
-        
-        let scale: CGFloat = {
-            let sizeAddendumFactor = coeff * (1.0 - factor)
-            return min(1.0, sizeAddendumFactor + factor)
-        }()
-        
-        // Value of difference between icons for large and small states
-        let sizeDiff = Const.ImageSizeForLargeState * (1.0 - factor) // 8.0
-        
-        let yTranslation: CGFloat = {
-            /// This value = 14. It equals to difference of 12 and 6 (bottom margin for large and small states). Also it adds 8.0 (size difference when the image gets smaller size)
-            let maxYTranslation = Const.ImageBottomMarginForLargeState - Const.ImageBottomMarginForSmallState + sizeDiff / 2
-            return max(0, min(maxYTranslation, (maxYTranslation - coeff * (Const.ImageBottomMarginForSmallState + sizeDiff / 2))))
-        }()
-        
-        let xTranslation = max(0, navWidth - Const.ImageLeftMargin - (coeff * (navWidth - Const.ImageLeftMargin - (sizeDiff / 2.0)) + (Const.ImageSizeForSmallState / 2.0)) - sizeDiff / 2)
-        
-        self.logoView.transform = CGAffineTransform.identity
-            .translatedBy(x: xTranslation, y: yTranslation)
-            .scaledBy(x: scale, y: scale)
     }
 
     func updatePlayStatus(isPlaying: Bool, isStopped: Bool) {
@@ -379,11 +337,6 @@ class SongListViewController: UIViewController {
 }
 
 extension SongListViewController: UITableViewDelegate, UITableViewDataSource {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let height = navigationController?.navigationBar.frame.height else { return }
-        self.moveAndResizeImage(for: height)
-    }
-    
     func refreshPlaying() {
         if self.currentlyPlayingPlaylist == self.selectedPlaylistIndex && self.currentlyPlayingPlaylist < self.playlists.count {
             let arrayToDisplay = self.isFiltering() ? self.filteredSongs : Array(self.playlists[self.currentlyPlayingPlaylist].songs!) as! [Song]
