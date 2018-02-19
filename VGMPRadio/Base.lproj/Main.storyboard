@@ -172,7 +172,7 @@
                                                 <constraint firstAttribute="height" constant="5" id="hXB-tv-3bK"/>
                                             </constraints>
                                         </view>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qgD-rP-LcS">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music_note" translatesAutoresizingMaskIntoConstraints="NO" id="qgD-rP-LcS">
                                             <rect key="frame" x="63" y="63" width="249" height="249"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="qgD-rP-LcS" secondAttribute="height" id="5ic-eJ-FKR"/>
@@ -762,6 +762,7 @@
     <resources>
         <image name="FF" width="50" height="33"/>
         <image name="RW" width="50" height="33"/>
+        <image name="music_note" width="267" height="267"/>
         <image name="play" width="36" height="36"/>
         <image name="play_table" width="33" height="33"/>
         <image name="repeat" width="20" height="20"/>

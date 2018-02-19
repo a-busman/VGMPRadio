@@ -39,7 +39,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="375.5" height="592.5"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="x3A-aF-nGq">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="music_note" translatesAutoresizingMaskIntoConstraints="NO" id="x3A-aF-nGq">
                                                                 <rect key="frame" x="55" y="0.0" width="265.5" height="265.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="x3A-aF-nGq" secondAttribute="height" id="Vwe-W1-AAJ"/>
@@ -552,7 +552,7 @@
             </objects>
             <point key="canvasLocation" x="183" y="-414"/>
         </scene>
-        <!--Song List View Controller-->
+        <!--VGMPRadio-->
         <scene sceneID="ZmS-Jn-W0T">
             <objects>
                 <viewController id="qrb-MU-j0D" customClass="SongListViewController" customModule="VGMPRadio" customModuleProvider="target" sceneMemberID="viewController">
@@ -591,7 +591,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="uFr-Ut-WPW"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Igy-nF-O9L"/>
+                    <navigationItem key="navigationItem" title="VGMPRadio" id="Igy-nF-O9L"/>
                     <connections>
                         <outlet property="addToPlaylistLabel" destination="iu5-kY-4tx" id="oFn-zL-RBW"/>
                         <outlet property="songActivityIndicator" destination="ker-9f-QMt" id="WrK-OS-BT7"/>
@@ -648,6 +648,7 @@
     <resources>
         <image name="FF" width="50" height="33"/>
         <image name="RW" width="50" height="33"/>
+        <image name="music_note" width="267" height="267"/>
         <image name="play" width="36" height="36"/>
         <image name="repeat" width="20" height="20"/>
         <image name="shuffle" width="20" height="20"/>
