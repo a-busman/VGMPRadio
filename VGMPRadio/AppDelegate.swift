@@ -37,7 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         window?.rootViewController = storyboard.instantiateInitialViewController()
         window?.makeKeyAndVisible()
-        
         return true
     }
 

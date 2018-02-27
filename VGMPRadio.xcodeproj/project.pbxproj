@@ -27,6 +27,8 @@
 		FAB627C7200D2AB800D548D0 /* VGMPRadio.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FAB627C5200D2AB800D548D0 /* VGMPRadio.xcdatamodeld */; };
 		FAB627CE200FDF9B00D548D0 /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB627CC200FDF9A00D548D0 /* SongTableViewCell.swift */; };
 		FAB627CF200FDF9B00D548D0 /* SongTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAB627CD200FDF9A00D548D0 /* SongTableViewCell.xib */; };
+		FAEE07682045B04400F212D8 /* ARCADECLASSIC.TTF in Resources */ = {isa = PBXBuildFile; fileRef = FAEE07672045B04400F212D8 /* ARCADECLASSIC.TTF */; };
+		FAEE076E2045BCC900F212D8 /* LaunchScreenIpad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAEE076C2045BCC900F212D8 /* LaunchScreenIpad.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +65,8 @@
 		FAB627C6200D2AB800D548D0 /* VGMPRadio.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VGMPRadio.xcdatamodel; sourceTree = "<group>"; };
 		FAB627CC200FDF9A00D548D0 /* SongTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
 		FAB627CD200FDF9A00D548D0 /* SongTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongTableViewCell.xib; sourceTree = "<group>"; };
+		FAEE07672045B04400F212D8 /* ARCADECLASSIC.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = ARCADECLASSIC.TTF; sourceTree = "<group>"; };
+		FAEE076D2045BCC900F212D8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreenIpad.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,7 @@
 		FAB627922009C61A00D548D0 = {
 			isa = PBXGroup;
 			children = (
+				FAEE07672045B04400F212D8 /* ARCADECLASSIC.TTF */,
 				FAB627C5200D2AB800D548D0 /* VGMPRadio.xcdatamodeld */,
 				FAB6279D2009C61B00D548D0 /* VGMPRadio */,
 				FAB6279C2009C61B00D548D0 /* Products */,
@@ -128,6 +133,7 @@
 				FA67362B201C117A002DAFD7 /* ScrubBar.swift */,
 				FA673637201D4565002DAFD7 /* Localizable.strings */,
 				FA6148232022DA5900EE7105 /* IPad.storyboard */,
+				FAEE076C2045BCC900F212D8 /* LaunchScreenIpad.storyboard */,
 			);
 			path = VGMPRadio;
 			sourceTree = "<group>";
@@ -234,6 +240,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAEE07682045B04400F212D8 /* ARCADECLASSIC.TTF in Resources */,
 				FAB627CF200FDF9B00D548D0 /* SongTableViewCell.xib in Resources */,
 				FA673635201D4565002DAFD7 /* Localizable.strings in Resources */,
 				FA0AD314201D98F30084C4F6 /* PlayShuffleTableViewCell.xib in Resources */,
@@ -242,6 +249,7 @@
 				FAB627A62009C61B00D548D0 /* Assets.xcassets in Resources */,
 				FAB627B9200AD51600D548D0 /* PlaylistSelectionCell.xib in Resources */,
 				FAB627A42009C61B00D548D0 /* Main.storyboard in Resources */,
+				FAEE076E2045BCC900F212D8 /* LaunchScreenIpad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +377,14 @@
 				FA67363D201D4713002DAFD7 /* en-001 */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		FAEE076C2045BCC900F212D8 /* LaunchScreenIpad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FAEE076D2045BCC900F212D8 /* Base */,
+			);
+			name = LaunchScreenIpad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
