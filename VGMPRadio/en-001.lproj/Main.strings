@@ -5,8 +5,8 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "Vdg-XQ-4md"; */
 "Vdg-XQ-4md.text" = "Label";
 
-/* Class = "UINavigationItem"; title = " "; ObjectID = "bDC-LN-iJ9"; */
-"bDC-LN-iJ9.title" = " ";
+/* Class = "UINavigationItem"; title = "VGMPRadio"; ObjectID = "bDC-LN-iJ9"; */
+"bDC-LN-iJ9.title" = "VGMPRadio";
 
 /* Class = "UILabel"; text = "0:00"; ObjectID = "czC-aw-UD9"; */
 "czC-aw-UD9.text" = "0:00";
