@@ -207,7 +207,8 @@ class VGMPRadio {
                     if let albumArtUrl = track["artworkUrl"] as? String,
                        let schemeEnd = albumArtUrl.index(of: "/"),
                        let percentPath = albumArtUrl[schemeEnd...].addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) {
-                            song.albumArtUrl = "https:" + percentPath
+                        let fullSizeString = percentPath.replacingOccurrences(of: "-300x300", with: "", options: .literal, range: (percentPath.index(percentPath.endIndex, offsetBy: -12))..<percentPath.endIndex)
+                            song.albumArtUrl = "https:" + fullSizeString
                     }
                     
                     if let title = track["title"] as? String {
